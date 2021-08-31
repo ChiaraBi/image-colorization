@@ -1,0 +1,8 @@
+argparse
+ipython
+matplotlib
+numpy
+Pillow
+scikit-image
+tensorflow
+torch
