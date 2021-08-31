@@ -1,0 +1,31 @@
+/models/dahl/*.tfmodel
+
+# pycharm
+.idea/
+__pycache__/
+*.pyc
+
+# virtual env
+/venv/
+./envs
+
+#jupyter
+src/.ipynb_checkpoints/
+
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+latex/*.pdf
+*.bbl
+*.blg
+*.gz
