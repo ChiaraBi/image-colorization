@@ -5,12 +5,12 @@ from colorization import colorizers
 from colorization.colorizers.util import load_img, preprocess_img, postprocess_tens
 
 colorizer_eccv16 = colorizers.eccv16().eval()
-# colorizer_eccv16.cuda()
+# colorizer_eccv16.cuda() # uncomment this if you're using GPU
 
 img_path = '../img/ansel_adams3.jpeg'
 img = load_img(img_path)
 (tens_l_orig, tens_l_rs) = preprocess_img(img, HW=(256, 256))
-# tens_l_rs = tens_l_rs.cuda()
+# tens_l_rs = tens_l_rs.cuda() # uncomment this if you're using GPU
 
 # colorizer outputs 256x256 ab map
 # resize and concatenate to original L channel
