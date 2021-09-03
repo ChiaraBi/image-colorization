@@ -1,6 +1,10 @@
 # Vision project
 Project for the university course Vision and Cognitive Services.
 
+We used a small subset of the ImageNet dataset:
+- https://github.com/fastai/imagenette
+- https://github.com/EliSchwartz/imagenet-sample-images
+
 Here you can find the pretrained models used in this project:
 - Dahl: https://tinyclouds.org/colorize/ (Download section)
 - Larsson: https://github.com/gustavla/autocolorize

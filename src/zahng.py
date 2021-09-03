@@ -11,8 +11,8 @@ colorizer_eccv16 = colorizers.eccv16().eval()
 imageNet_input_dir = '../img/original/ImageNet/'
 bnw_input_dir = '../img/original/BlackAndWhite/'
 
-imageNet_output_dir = '../img/colorized/ImageNet/'
-bnw_output_dir = '../img/colorized/BlackAndWhite/'
+imageNet_output_dir = '../img/colorized/zhang/ImageNet/'
+bnw_output_dir = '../img/colorized/zhang/BlackAndWhite/'
 
 # load and preprocess images
 img_path = bnw_input_dir + 'ansel_adams3.jpeg'
