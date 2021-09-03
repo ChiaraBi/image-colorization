@@ -2,6 +2,9 @@ import tensorflow.compat.v1 as tf
 import skimage.transform
 from skimage.io import imsave, imread
 
+from os import listdir
+from os.path import isfile, join
+
 tf.disable_v2_behavior()
 
 
@@ -18,9 +21,7 @@ def load_image(path):
     return (img[:, :, 0] + img[:, :, 1] + img[:, :, 2]) / 3.0
 
 
-shark_gray = load_image("../img/shark.jpg").reshape(1, 224, 224, 1)
-
-with open("../models/dahl/colorize.tfmodel", mode='rb') as f:
+with open("../models/colorize.tfmodel", mode='rb') as f:
     fileContent = f.read()
 
 graph_def = tf.GraphDef()
@@ -28,10 +29,21 @@ graph_def.ParseFromString(fileContent)
 grayscale = tf.placeholder(tf.float32, shape=(1, 224, 224, 1))
 tf.import_graph_def(graph_def, input_map={"grayscale": grayscale}, name='')
 
-with tf.Session() as sess:
-    inferred_rgb = sess.graph.get_tensor_by_name("inferred_rgb:0")
-    inferred_batch = sess.run(inferred_rgb, feed_dict={grayscale: shark_gray})
-    imsave("shark-color.jpg", inferred_batch[0])
-    print("saved shark-color.jpg")
+bnw_input_dir = '../img/original/BlackAndWhite/'
+bnw_output_dir = '../img/colorized/dahl/BlackAndWhite/'
 
+# BLACK AND WHITE
 
+onlyfiles = [f for f in listdir(bnw_input_dir) if isfile(join(bnw_input_dir, f))]
+
+for i in onlyfiles:
+    try:
+        img = load_image(join(bnw_input_dir, i)).reshape(1, 224, 224, 1)
+    except:
+        print("Failed to colorize: " + join(bnw_input_dir, i))
+        continue
+    with tf.Session() as sess:
+        inferred_rgb = sess.graph.get_tensor_by_name("inferred_rgb:0")
+        inferred_batch = sess.run(inferred_rgb, feed_dict={grayscale: img})
+        out_path = join(bnw_output_dir, i)
+        imsave(out_path, inferred_batch[0])

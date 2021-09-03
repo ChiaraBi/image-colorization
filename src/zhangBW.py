@@ -4,7 +4,6 @@ import torch
 from colorization import colorizers
 from colorization.colorizers.util import load_img, preprocess_img, postprocess_tens
 
-import os
 from os import listdir
 from os.path import isfile, join
 
@@ -17,7 +16,7 @@ bnw_output_dir = '../img/colorized/zhang/BlackAndWhite/'
 
 # BLACK AND WHITE
 onlyfiles = [f for f in listdir(bnw_input_dir) if isfile(join(bnw_input_dir, f))]
-#img_path = bnw_input_dir + 'ansel_adams3.jpeg'
+
 for i in onlyfiles:
     img = load_img(join(bnw_input_dir, i))
     (tens_l_orig, tens_l_rs) = preprocess_img(img, HW=(256, 256))
