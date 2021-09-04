@@ -11,13 +11,17 @@ colorizer_eccv16 = colorizers.eccv16().eval()
 # colorizer_eccv16.cuda() # uncomment this if you're using GPU
 
 # images' paths
-bnw_input_dir = '../img/original/BlackAndWhite/'
-bnw_output_dir = '../img/colorized/zhang/BlackAndWhite/'
+bnw_input_dir = '../img/original/Pascal/'
+bnw_output_dir = '../img/colorized/zhang/Pascal/'
 
 # BLACK AND WHITE
 onlyfiles = [f for f in listdir(bnw_input_dir) if isfile(join(bnw_input_dir, f))]
 
+count = 0
 for i in onlyfiles:
+    count += 1
+    if count % 100 == 0:
+        print(count)
     img = load_img(join(bnw_input_dir, i))
     (tens_l_orig, tens_l_rs) = preprocess_img(img, HW=(256, 256))
     # colorizer outputs 256x256 ab map
