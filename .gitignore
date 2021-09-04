@@ -1,4 +1,4 @@
-/models/dahl/*.tfmodel
+/models/*.tfmodel
 
 # pycharm
 .idea/
