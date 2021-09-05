@@ -4,7 +4,6 @@ import torchvision
 from torchvision import transforms
 
 import json
-import os
 from os import listdir
 from os.path import isfile, join
 
@@ -22,7 +21,7 @@ with open("../resources/imagenet_classes.txt", "r") as f:
 onlydirectories = [f for f in listdir(imageNet_original_dir) if not isfile(join(imageNet_original_dir, f))]
 
 # ORIGINAL IMAGES ACCURACY
-
+'''
 accuracy = 0
 count = 0
 failed_files = {}
@@ -63,16 +62,15 @@ print('Accuracy on original images: ', original_accuracy)
 
 with open('../resources/failed_files.txt', 'w') as convert_file:
     convert_file.write(json.dumps(failed_files))
-
+'''
 
 #############################
 # COLORIZED IMAGES ACCURACY #
 #############################
 
-# uncomment if you want to load the failed files from file
-# failed_files = {}
-# with open('failed_files.txt', 'r') as f:
-#     failed_files = json.load(f)
+failed_files = {}
+with open('../resources/failed_files.txt', 'r') as f:
+    failed_files = json.load(f)
 
 accuracy = 0
 count = 0
