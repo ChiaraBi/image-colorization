@@ -14,6 +14,7 @@ colorizer_eccv16 = colorizers.eccv16().eval()
 # images' paths
 imageNet_input_dir = '../img/original/ImageNet/'
 imageNet_output_dir = '../img/colorized/zhang/ImageNet/'
+imageNet_output_dir = '../img/colorized/siggraph/ImageNet/'
 
 # IMAGENET
 # directory list:
