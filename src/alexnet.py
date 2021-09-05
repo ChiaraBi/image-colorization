@@ -16,7 +16,7 @@ imageNet_colorized_dir = '../img/colorized/zhang/ImageNet/'
 imageNet_colorized_dir = '../img/colorized/dahl/ImageNet/'
 
 # Read the categories
-with open("../imagenet_classes.txt", "r") as f:
+with open("../resources/imagenet_classes.txt", "r") as f:
     categories = [s.strip() for s in f.readlines()]
 
 onlydirectories = [f for f in listdir(imageNet_original_dir) if not isfile(join(imageNet_original_dir, f))]
@@ -61,7 +61,7 @@ for d in onlydirectories:
 original_accuracy = accuracy/count
 print('Accuracy on original images: ', original_accuracy)
 
-with open('failed_files.txt', 'w') as convert_file:
+with open('../resources/failed_files.txt', 'w') as convert_file:
     convert_file.write(json.dumps(failed_files))
 
 
@@ -113,5 +113,5 @@ for d in onlydirectories:
 colorized_accuracy = accuracy/count
 print('Accuracy on colorized images: ', colorized_accuracy)
 
-with open('failed_files_c.txt', 'w') as convert_file:
+with open('../resources/failed_files_c.txt', 'w') as convert_file:
     convert_file.write(json.dumps(failed_files_c))
