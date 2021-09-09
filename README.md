@@ -13,8 +13,8 @@ Here you can find the pretrained models used in this project:
 
 Other recent pretrained models:
 - https://github.com/pvitoria/ChromaGAN - related paper [here](https://arxiv.org/pdf/1907.09837.pdf)
-- https://github.com/ericsujw/InstColorization
-- https://github.com/LenKerr/Colorization-1
+- https://github.com/ericsujw/InstColorization - related paper [here](https://arxiv.org/pdf/2005.10825.pdf)
+- https://github.com/LenKerr/Colorization-1 - inspired by Zhang
 - https://github.com/dongheehand/MemoPainter-PyTorch - related paper [here](https://arxiv.org/pdf/1906.11888.pdf)
 
 
