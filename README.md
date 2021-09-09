@@ -16,6 +16,6 @@ Other recent pretrained models:
 - https://github.com/ericsujw/InstColorization - related paper [here](https://arxiv.org/pdf/2005.10825.pdf)
 - https://github.com/LenKerr/Colorization-1 - inspired by Zhang
 - https://github.com/dongheehand/MemoPainter-PyTorch - related paper [here](https://arxiv.org/pdf/1906.11888.pdf)
-- https://github.com/MarkMoHR/Awesome-Image-Colorization - repository containing various codes
+- https://github.com/MarkMoHR/Awesome-Image-Colorization - repository containing various codes/ideas (language-based image editing)
 
 
