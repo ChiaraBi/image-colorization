@@ -13,7 +13,7 @@ from os import listdir
 from os.path import isfile, join
 
 # DIRECTORY INFORMATION
-DATA_DIR = os.path.join('../img/original/ImageNet')
+DATA_DIR = os.path.join('../img/original/test')
 OUT_DIR = os.path.join('../img/colorized/chromagan/')
 MODEL_DIR = os.path.join('../models')
 BATCH_SIZE = 1
@@ -21,8 +21,8 @@ BATCH_SIZE = 1
 # TRAINING INFORMATION
 PRETRAINED = "my_model_colorization.h5"
 
-# folder_list = [folder for folder in listdir(DATA_DIR) if not isfile(join(DATA_DIR, folder))]
-folder_list = ['prova']
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+size = len(file_list)  # 2323
 
 
 def read_img(filename):
@@ -35,32 +35,27 @@ def read_img(filename):
         labimg_ori[:, :, 0], (height, width, 1))
 
 
-def generate_batch():
+def generate_batch(data_index):
     batch = []
     labels = []
     filelist = []
     labimg_oritList = []
     originalList = []
     for i in range(BATCH_SIZE):
-        for d in folder_list:
-            in_path = join(DATA_DIR, d)
-            out_path = join(OUT_DIR, d)
-            if not os.path.exists(out_path):
-                os.makedirs(out_path)
-            onlyfiles = [f for f in listdir(in_path) if isfile(join(in_path, f))]
-            for f in onlyfiles:
-                filename = os.path.join(in_path, f)
-                filelist.append(filename)
-                greyimg, colorimg, original, labimg_ori = read_img(filename)
-                batch.append(greyimg)
-                labels.append(colorimg)
-                originalList.append(original)
-                labimg_oritList.append(labimg_ori)
+        filename = file_list[data_index]
+        filelist.append(filename)
+        file_path = join(DATA_DIR, filename)
+        greyimg, colorimg, original, labimg_ori = read_img(file_path)
+        batch.append(greyimg)
+        labels.append(colorimg)
+        originalList.append(original)
+        labimg_oritList.append(labimg_ori)
+        data_index = (data_index + 1) % size
     batch = np.asarray(batch) / 255  # values between 0 and 1
     labels = np.asarray(labels) / 255  # values between 0 and 1
     originalList = np.asarray(originalList)
     labimg_oritList = np.asarray(labimg_oritList) / 255
-    return batch, labels, filelist, originalList, labimg_oritList
+    return batch, labels, filelist, originalList, labimg_oritList, data_index
 
 
 def deprocess(imgs):
@@ -77,10 +72,9 @@ def reconstruct(batchX, predictedY):
     return result
 
 
-size = 1
-
-
 def sample_images():
+    data_index = 0
+
     avg_ssim = 0
     avg_psnr = 0
     VGG_modelF = applications.vgg16.VGG16(weights='imagenet', include_top=True)
@@ -100,26 +94,18 @@ def sample_images():
         print('created save result path')
         os.makedirs(OUT_DIR)
     for b in range(total_batch):
-        print("ok")
-        batchX, batchY, filelist, original, labimg_oritList = generate_batch()
-        print("ok1")
+        batchX, batchY, filelist, original, labimg_oritList, data_index = generate_batch(data_index)
         predY, _ = colorizationModel.predict(np.tile(batchX, [1, 1, 1, 3]))
-        print("ok1.1")
         predictVGG = VGG_modelF.predict(np.tile(batchX, [1, 1, 1, 3]))
-        print("ok1.2")
         loss = colorizationModel.evaluate(np.tile(batchX, [1, 1, 1, 3]), [batchY, predictVGG], verbose=0)
-        print("ok1.3")
 
         for i in range(BATCH_SIZE):
-            print("ok2")
             originalResult = original[i]
             height, width, channels = originalResult.shape
             predY_2 = deprocess(predY[i])
             predY_2 = cv2.resize(predY_2, (width, height))
             labimg_oritList_2 = labimg_oritList[i]
-            print("ok3")
             predResult_2 = reconstruct(deprocess(labimg_oritList_2), predY_2)
-            print("ok4")
             ssim = tf.keras.backend.eval(tf.image.ssim(tf.convert_to_tensor(originalResult, dtype=tf.float32),
                                                        tf.convert_to_tensor(predResult_2, dtype=tf.float32),
                                                        max_val=255))
@@ -128,7 +114,7 @@ def sample_images():
                                                        max_val=255))
             avg_ssim += ssim
             avg_psnr += psnr
-            save_path = os.path.join(OUT_DIR, "_reconstructed.jpg")
+            save_path = os.path.join(OUT_DIR, filelist[i])
             print(save_path)
             cv2.imwrite(save_path, predResult_2)
             print("")
