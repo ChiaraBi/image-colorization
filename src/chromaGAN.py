@@ -80,7 +80,6 @@ def sample_images():
     VGG_modelF = applications.vgg16.VGG16(weights='imagenet', include_top=True)
     save_path = os.path.join(MODEL_DIR, PRETRAINED)
     colorizationModel = load_model(save_path)
-    test_data = DATA_DIR
     assert size >= 0, "Your list of images to colorize is empty. Please load images."
     assert BATCH_SIZE <= size, "The batch size (" + str(
         BATCH_SIZE) + ") should be smaller or equal to the number of testing images (" + str(
@@ -130,3 +129,69 @@ def sample_images():
 
 
 sample_images()
+
+'''
+DATA_DIR = os.path.join('../img/original/ImageNet/cassette player')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/cassette player')
+
+
+sample_images()
+
+# DIRECTORY INFORMATION
+DATA_DIR = os.path.join('../img/original/ImageNet/chain saw')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/chain saw')
+
+sample_images()
+
+# DIRECTORY INFORMATION
+DATA_DIR = os.path.join('../img/original/ImageNet/church')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/church')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/Samoyed')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Samoyed')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/parachute')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/parachute')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/gas pump')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/gas pump')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/golf ball')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/golf ball')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/garbage truck')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/garbage truck')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/tench')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/tench')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/English springer')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/English springer')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/French horn')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/French horn')
+
+sample_images()
+
+DATA_DIR = os.path.join('../img/original/ImageNet/Rhodesian ridgeback')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Rhodesian ridgeback')
+
+sample_images()
+
+'''
