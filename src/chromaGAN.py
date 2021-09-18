@@ -19,7 +19,7 @@ MODEL_DIR = os.path.join('../models')
 BATCH_SIZE = 1
 
 # TRAINING INFORMATION
-PRETRAINED = "my_model_colorization.h5"
+PRETRAINED = "ChromaGAN.h5"
 
 file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
 size = len(file_list)  # 2323
