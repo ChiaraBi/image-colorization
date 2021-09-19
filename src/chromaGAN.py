@@ -13,9 +13,8 @@ from os import listdir
 from os.path import isfile, join
 
 # DIRECTORY INFORMATION
-DATA_DIR = os.path.join('../img/original/ImageNet/gp')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/gas pump')
-# English springer
+DATA_DIR = os.path.join('../img/original/ImageNet/English springer')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/English springer')
 # French horn
 # garbage truck
 # Rhodesian ridgeback
