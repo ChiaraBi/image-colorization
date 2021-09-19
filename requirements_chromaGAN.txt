@@ -1,5 +1,9 @@
 h5py==2.10.0
 tensorflow==1.15.0
 opencv-python==4.1.0.25
+<<<<<<< Updated upstream
 numpy==1.9.1
 keras==2.2.4
+=======
+keras==2.2.4
+>>>>>>> Stashed changes

@@ -13,13 +13,22 @@ from os import listdir
 from os.path import isfile, join
 
 # DIRECTORY INFORMATION
+<<<<<<< Updated upstream
 DATA_DIR = os.path.join('../img/original/test')
 OUT_DIR = os.path.join('../img/colorized/chromagan/test')
+=======
+DATA_DIR = os.path.join('../img/original/ImageNet/Samoyed')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Samoyed')
+>>>>>>> Stashed changes
 MODEL_DIR = os.path.join('../models')
 BATCH_SIZE = 1
 
 # TRAINING INFORMATION
+<<<<<<< Updated upstream
 PRETRAINED = "ChromaGAN.h5"
+=======
+PRETRAINED = "../models/ChromaGAN.h5"
+>>>>>>> Stashed changes
 
 file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
 size = len(file_list)  # 2323
@@ -78,7 +87,7 @@ def sample_images():
     avg_ssim = 0
     avg_psnr = 0
     VGG_modelF = applications.vgg16.VGG16(weights='imagenet', include_top=True)
-    save_path = os.path.join(MODEL_DIR, PRETRAINED)
+    save_path = PRETRAINED
     colorizationModel = load_model(save_path)
     assert size >= 0, "Your list of images to colorize is empty. Please load images."
     assert BATCH_SIZE <= size, "The batch size (" + str(
@@ -130,6 +139,7 @@ def sample_images():
 
 sample_images()
 
+<<<<<<< Updated upstream
 '''
 DATA_DIR = os.path.join('../img/original/ImageNet/cassette player')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/cassette player')
@@ -157,41 +167,76 @@ sample_images()
 DATA_DIR = os.path.join('../img/original/ImageNet/parachute')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/parachute')
 
+=======
+# DIRECTORY INFORMATION
+DATA_DIR = os.path.join('../img/original/ImageNet/parachute')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/parachute')
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+>>>>>>> Stashed changes
 sample_images()
 
 DATA_DIR = os.path.join('../img/original/ImageNet/gas pump')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/gas pump')
+<<<<<<< Updated upstream
 
+=======
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+>>>>>>> Stashed changes
 sample_images()
 
 DATA_DIR = os.path.join('../img/original/ImageNet/golf ball')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/golf ball')
+<<<<<<< Updated upstream
 
+=======
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+>>>>>>> Stashed changes
 sample_images()
 
 DATA_DIR = os.path.join('../img/original/ImageNet/garbage truck')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/garbage truck')
+<<<<<<< Updated upstream
 
+=======
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+>>>>>>> Stashed changes
 sample_images()
 
 DATA_DIR = os.path.join('../img/original/ImageNet/tench')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/tench')
+<<<<<<< Updated upstream
 
+=======
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+>>>>>>> Stashed changes
 sample_images()
 
 DATA_DIR = os.path.join('../img/original/ImageNet/English springer')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/English springer')
+<<<<<<< Updated upstream
 
+=======
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+>>>>>>> Stashed changes
 sample_images()
 
 DATA_DIR = os.path.join('../img/original/ImageNet/French horn')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/French horn')
+<<<<<<< Updated upstream
 
+=======
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+>>>>>>> Stashed changes
 sample_images()
 
 DATA_DIR = os.path.join('../img/original/ImageNet/Rhodesian ridgeback')
 OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Rhodesian ridgeback')
+<<<<<<< Updated upstream
 
 sample_images()
 
 '''
+=======
+file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+sample_images()
+>>>>>>> Stashed changes
