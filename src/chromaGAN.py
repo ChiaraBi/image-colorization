@@ -13,8 +13,13 @@ from os import listdir
 from os.path import isfile, join
 
 # DIRECTORY INFORMATION
-DATA_DIR = os.path.join('../img/original/ImageNet/Samoyed')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Samoyed')
+DATA_DIR = os.path.join('../img/original/ImageNet/gp')
+OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/gas pump')
+# English springer
+# French horn
+# garbage truck
+# Rhodesian ridgeback
+# tench
 MODEL_DIR = os.path.join('../models')
 BATCH_SIZE = 1
 
@@ -127,60 +132,4 @@ def sample_images():
         print("average ssim loss =", "{:.8f}".format(avg_ssim / (total_batch * BATCH_SIZE)))
         print("average psnr loss =", "{:.8f}".format(avg_psnr / (total_batch * BATCH_SIZE)))
 
-
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/church')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/church')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/church')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/church')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/Samoyed')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Samoyed')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/parachute')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/parachute')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/gas pump')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/gas pump')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/golf ball')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/golf ball')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/garbage truck')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/garbage truck')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/tench')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/tench')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/English springer')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/English springer')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/French horn')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/French horn')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
-sample_images()
-
-DATA_DIR = os.path.join('../img/original/ImageNet/Rhodesian ridgeback')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Rhodesian ridgeback')
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
 sample_images()
