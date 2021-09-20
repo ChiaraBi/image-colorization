@@ -13,7 +13,7 @@ from os import listdir
 from os.path import isfile, join
 
 # DIRECTORY INFORMATION
-DATA_DIR = os.path.join('../img/original/test_2200')
+DATA_DIR = os.path.join('../img/original/test')
 OUT_DIR = os.path.join('../img/colorized/chromagan/test')
 MODEL_DIR = os.path.join('../models')
 BATCH_SIZE = 1
