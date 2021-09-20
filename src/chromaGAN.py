@@ -13,9 +13,8 @@ from os import listdir
 from os.path import isfile, join
 
 # DIRECTORY INFORMATION
-DATA_DIR = os.path.join('../img/original/ImageNet/Rhodesian ridgeback')
-OUT_DIR = os.path.join('../img/colorized/chromagan/ImageNet/Rhodesian ridgeback')
-# tench
+DATA_DIR = os.path.join('../img/original/test_500')
+OUT_DIR = os.path.join('../img/colorized/chromagan/test')
 MODEL_DIR = os.path.join('../models')
 BATCH_SIZE = 1
 
