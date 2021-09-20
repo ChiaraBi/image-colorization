@@ -11,8 +11,8 @@ colorizer_eccv16 = colorizers.eccv16().eval()
 # colorizer_eccv16.cuda() # uncomment this if you're using GPU
 
 # images' paths
-bnw_input_dir = '../img/original/BlackAndWhite/'
-bnw_output_dir = '../img/colorized/zhang/BlackAndWhite/'
+bnw_input_dir = '../img/original/test/'
+bnw_output_dir = '../img/colorized/zhang/test/'
 
 # BLACK AND WHITE
 onlyfiles = [f for f in listdir(bnw_input_dir) if isfile(join(bnw_input_dir, f))]
