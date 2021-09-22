@@ -1,5 +1,7 @@
 /models/*
 
+src/InstColorization/checkpoints/*
+
 # pycharm
 .idea/
 __pycache__/
