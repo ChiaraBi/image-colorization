@@ -21,4 +21,28 @@ Other recent pretrained models:
 - https://github.com/dongheehand/MemoPainter-PyTorch - related paper [here](https://arxiv.org/pdf/1906.11888.pdf)
 - https://github.com/MarkMoHR/Awesome-Image-Colorization - repository containing various codes/ideas (language-based image editing)
 
+## Requirements
+- python 3.6
+- virtualenv wrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
 
+## Dahl
+- create a virtual environment: `mkvirtualenv --python=python3 dahl`
+- install the requirements: `pip install -r requirements.txt`
+
+- run the model: 
+  - to colorize black and white images:`dahlBW.py`
+  
+  - to colorize ImageNet images: `dahlImageNet.py`
+    
+## Zhang
+- create a virtual environment: `mkvirtualenv --python=python3 zhang`
+- install the requirements: `pip install -r requirements.txt`
+
+- run the model: 
+  - to colorize black and white images:`zhangBW.py`
+  
+  - to colorize ImageNet images: `zhangImageNet.py`
+
+## ChromaGAN
+- create a virtual environment using python 3.6: `mkvirtualenv --python=python3 chromaGAN`
+- install the requirements: `pip install -r requirements_chromaGAN.txt`
