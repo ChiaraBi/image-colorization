@@ -29,11 +29,12 @@ graph_def.ParseFromString(fileContent)
 grayscale = tf.placeholder(tf.float32, shape=(1, 224, 224, 1))
 tf.import_graph_def(graph_def, input_map={"grayscale": grayscale}, name='')
 
-bnw_input_dir = '../img/original/test/'
-bnw_output_dir = '../img/colorized/dahl/test/'
+# images' paths
+bnw_input_dir = '../img/original/BlackAndWhite/'
+bnw_output_dir = '../img/colorized/dahl/BlackAndWhite/'
 
-# bnw_input_dir = '../img/original/Pascal/'
-# bnw_output_dir = '../img/colorized/dahl/Pascal/'
+# bnw_input_dir = '../img/original/test/'
+# bnw_output_dir = '../img/colorized/dahl/test/'
 
 # BLACK AND WHITE
 
