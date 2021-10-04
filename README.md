@@ -1,7 +1,7 @@
 # Vision project
 Project for the university course Vision and Cognitive Services.
 
-We used a small subset of both the ImageNet and Pascal datasets:
+We used a small subset of ImageNet, Pascal, Places and other datasets:
 - Imagenette: https://github.com/fastai/imagenette
 - https://github.com/EliSchwartz/imagenet-sample-images
 - Pascal: https://deepai.org/dataset/pascal-voc
