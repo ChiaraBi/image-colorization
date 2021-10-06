@@ -6,8 +6,8 @@ We used a small subset of ImageNet, Pascal, Places and other datasets:
 - https://github.com/EliSchwartz/imagenet-sample-images
 - Pascal: https://deepai.org/dataset/pascal-voc
 - Places: https://paperswithcode.com/dataset/places
-- Birds
-- Flowers
+- Birds: https://www.kaggle.com/gpiosenka/100-bird-species
+- Flowers: https://www.robots.ox.ac.uk/~vgg/data/flowers/102/
 
 Here you can find the pretrained models used in this project:
 - Dahl: https://tinyclouds.org/colorize/ (Download section)
