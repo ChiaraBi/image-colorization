@@ -175,8 +175,10 @@ def calculate_accuracy(y_pred, y):
 
 data_train_scaled = np.load('../resources/data_train_scaled.npy')
 data_test_scaled = np.load('../resources/data_test_scaled.npy')
-labels = ["cassette player", "chain saw", "church", "gas pump", "golf ball", "French horn", "parachute",
+
+lab = ["cassette player", "chain saw", "church", "gas pump", "golf ball", "French horn", "parachute",
           "Rhodesian ridgeback", "Samoyed", "English springer", "tench", "garbage truck"]
+labels = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0, 569]
 
 train_labels = None
 for l in labels:
@@ -187,17 +189,16 @@ for l in labels:
 
 test_labels = None
 for l in labels:
-    if train_labels is None:
-        train_labels = np.full(50, l)
+    if test_labels is None:
+        test_labels = np.full(50, l)
     else:
-        train_labels = np.concatenate((train_labels, np.full(50, l)), axis = 0)
-
+        test_labels = np.concatenate((test_labels, np.full(50, l)), axis = 0)
 
 class MyDataset(Dataset):
     def __init__(self, data, targets, transform=None):
         self.data = data
-        #self.targets = torch.LongTensor(targets)
-        self.targets = targets
+        self.targets = torch.LongTensor(targets)
+        #self.targets = targets
         self.transform = transform
 
     def __getitem__(self, index):
@@ -232,10 +233,14 @@ train_iterator = torch.utils.data.DataLoader(train_dataset, shuffle=True, batch_
 valid_iterator = torch.utils.data.DataLoader(valid_dataset, batch_size=BATCH_SIZE)
 test_iterator = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE)
 
+for (x,y) in train_iterator:
+    print(x.shape) # torch.Size([64, 3, 256, 256])
+    print(y.shape) # torch.Size([64])
+
 # Pre-trained model:
 alexnet = torchvision.models.alexnet(pretrained=True)
-alexnet.double()
 print(alexnet.classifier[-1]) # Linear(in_features=4096, out_features=1000, bias=True)
+alexnet.double()
 
 # Freeze all layers except last Fully Connected layer:
 for parameter in alexnet.features.parameters():
