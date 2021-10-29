@@ -1,12 +1,9 @@
-import matplotlib.pyplot as plt
-import torchvision
+import numpy as np
+
 from os import listdir
 from os.path import isfile, join
-from PIL import Image
-import numpy as np
+
 from colorization.colorizers.util import *
-import matplotlib.pyplot as plt
-import cv2
 
 orig_train = '../img/original/finetuning_train/'
 orig_test = '../img/original/finetuning_test/'
