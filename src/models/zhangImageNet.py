@@ -12,9 +12,9 @@ colorizer_eccv16 = colorizers.eccv16().eval()
 # colorizer_eccv16.cuda() # uncomment this if you're using GPU
 
 # images' paths
-imageNet_input_dir = '../img/original/ImageNet/'
-imageNet_output_dir = '../img/colorized/zhang/ImageNet/'
-imageNet_output_dir = '../img/colorized/siggraph/ImageNet/'
+imageNet_input_dir = '../../img/original/ImageNet/'
+imageNet_output_dir = '../../img/colorized/zhang/ImageNet/'
+imageNet_output_dir = '../../img/colorized/siggraph/ImageNet/'
 
 # IMAGENET
 # directory list:

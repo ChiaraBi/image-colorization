@@ -22,7 +22,7 @@ def load_image(path):
     return (img[:, :, 0] + img[:, :, 1] + img[:, :, 2]) / 3.0
 
 
-with open("../models/colorize.tfmodel", mode='rb') as f:
+with open("../../models/colorize.tfmodel", mode='rb') as f:
     fileContent = f.read()
 
 graph_def = tf.GraphDef()
@@ -30,8 +30,8 @@ graph_def.ParseFromString(fileContent)
 grayscale = tf.placeholder(tf.float32, shape=(1, 224, 224, 1))
 tf.import_graph_def(graph_def, input_map={"grayscale": grayscale}, name='')
 
-imageNet_input_dir = '../img/original/ImageNet/'
-imageNet_output_dir = '../img/colorized/dahl/ImageNet/'
+imageNet_input_dir = '../../img/original/ImageNet/'
+imageNet_output_dir = '../../img/colorized/dahl/ImageNet/'
 
 
 # IMAGENET

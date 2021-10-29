@@ -13,13 +13,13 @@ from os import listdir
 from os.path import isfile, join
 
 # DIRECTORY INFORMATION
-DATA_DIR = os.path.join('../img/original/test')
-OUT_DIR = os.path.join('../img/colorized/chromagan/test')
-MODEL_DIR = os.path.join('../models')
+DATA_DIR = os.path.join('../../img/original/test')
+OUT_DIR = os.path.join('../../img/colorized/chromagan/test')
+MODEL_DIR = os.path.join('../../models')
 BATCH_SIZE = 1
 
 # TRAINING INFORMATION
-PRETRAINED = "../models/ChromaGAN.h5"
+PRETRAINED = "../../models/ChromaGAN.h5"
 
 file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
 size = len(file_list)  # 2323

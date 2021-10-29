@@ -21,7 +21,7 @@ def load_image(path):
     return (img[:, :, 0] + img[:, :, 1] + img[:, :, 2]) / 3.0
 
 
-with open("../models/colorize.tfmodel", mode='rb') as f:
+with open("../../models/colorize.tfmodel", mode='rb') as f:
     fileContent = f.read()
 
 graph_def = tf.GraphDef()
@@ -30,11 +30,11 @@ grayscale = tf.placeholder(tf.float32, shape=(1, 224, 224, 1))
 tf.import_graph_def(graph_def, input_map={"grayscale": grayscale}, name='')
 
 # images' paths
-bnw_input_dir = '../img/original/BlackAndWhite/'
-bnw_output_dir = '../img/colorized/dahl/BlackAndWhite/'
+bnw_input_dir = '../../img/original/BlackAndWhite/'
+bnw_output_dir = '../../img/colorized/dahl/BlackAndWhite/'
 
-# bnw_input_dir = '../img/original/test/'
-# bnw_output_dir = '../img/colorized/dahl/test/'
+# bnw_input_dir = '../../img/original/test/'
+# bnw_output_dir = '../../img/colorized/dahl/test/'
 
 # BLACK AND WHITE
 
