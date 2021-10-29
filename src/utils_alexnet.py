@@ -1,21 +1,13 @@
-import matplotlib.pyplot as plt
-import torchvision
-from os import listdir
-from os.path import isfile, join
-from PIL import Image
 import numpy as np
-from colorization.colorizers.util import *
+from PIL import Image
 import torch
-import torch.optim as optim
-import torch.utils.data as data
-import torch.nn as nn
 import torch.nn.functional as F
+from torch.utils.data import Dataset
+
 import time
-from torchvision import transforms
-from torch.utils.data import Dataset, DataLoader
-import os
-import copy
-import cv2
+
+from colorization.colorizers.util import *
+
 
 def train(model, iterator, optimizer, criterion, device):
     epoch_loss = 0
@@ -105,6 +97,7 @@ def predict(model, iterator, device):
 
     return labels, pred
 
+
 def model_training(n_epochs, model, train_iterator, valid_iterator, optimizer, criterion, device,
                    model_name='best_model.pt'):
     # Initialize validation loss
@@ -143,16 +136,16 @@ def model_training(n_epochs, model, train_iterator, valid_iterator, optimizer, c
 
     return train_losses, train_accs, valid_losses, valid_accs
 
-def model_testing(model, test_iterator, criterion, device, model_name='best_model.pt'):
-  # Test model
-  model.load_state_dict(torch.load(model_name))
-  test_loss, test_acc = evaluate(model, test_iterator, criterion, device)
-  print(f"Test -- Loss: {test_loss:.3f}, Acc: {test_acc * 100:.2f} %")
 
+def model_testing(model, test_iterator, criterion, device, model_name='best_model.pt'):
+    # Test model
+    model.load_state_dict(torch.load(model_name))
+    test_loss, test_acc = evaluate(model, test_iterator, criterion, device)
+    print(f"Test -- Loss: {test_loss:.3f}, Acc: {test_acc * 100:.2f} %")
 
 
 def calculate_accuracy(y_pred, y):
-    '''
+    """
     Compute accuracy from ground-truth and predicted labels.
 
     Input
@@ -164,18 +157,19 @@ def calculate_accuracy(y_pred, y):
     ------
     acc: float
       Accuracy
-    '''
+    """
     y_prob = F.softmax(y_pred, dim=-1)
     y_pred = y_pred.argmax(dim=1, keepdim=True)
     correct = y_pred.eq(y.view_as(y_pred)).sum()
     acc = correct.float() / y.shape[0]
     return acc
 
+
 class MyDataset(Dataset):
     def __init__(self, data, targets, transform=None):
         self.data = data
         self.targets = torch.LongTensor(targets)
-        #self.targets = targets
+        # self.targets = targets
         self.transform = transform
 
     def __getitem__(self, index):

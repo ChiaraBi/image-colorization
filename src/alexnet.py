@@ -12,8 +12,8 @@ model.eval()
 
 imageNet_original_dir = '../img/original/ImageNet/'
 imageNet_colorized_dir = '../img/colorized/zhang/ImageNet/'
-imageNet_colorized_dir = '../img/colorized/dahl/ImageNet/'
-imageNet_colorized_dir = '../img/colorized/siggraph/ImageNet/'
+# imageNet_colorized_dir = '../img/colorized/dahl/ImageNet/'
+# imageNet_colorized_dir = '../img/colorized/siggraph/ImageNet/'
 
 # Read the categories
 with open("../resources/imagenet_classes.txt", "r") as f:

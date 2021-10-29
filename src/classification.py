@@ -48,6 +48,6 @@ test_iterator = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE)
 alexnet = torchvision.models.alexnet(pretrained=True)
 
 
-with open('../resources/Test_Results_Chromagan.txt', 'w') as f:
+with open('../resources/classification/Test_Results_Chromagan.txt', 'w') as f:
     f.write("Test loss:" + str(test_loss) + '\n')
     f.write("Test acc:" + str(test_acc) + '\n')
