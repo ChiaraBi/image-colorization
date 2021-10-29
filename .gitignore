@@ -2,7 +2,7 @@
 
 src/InstColorization/checkpoints/*
 
-*/_bbox/
+img/original/ImageNet/*/_bbox/
 
 # pycharm
 .idea/
