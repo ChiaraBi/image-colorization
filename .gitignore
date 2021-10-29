@@ -1,8 +1,11 @@
-/models/*
+# pretrained models
+*.h5
+*.tfmodel
+
+# bounding box
+img/original/ImageNet/*/_bbox/
 
 src/InstColorization/checkpoints/*
-
-img/original/ImageNet/*/_bbox/
 
 # pycharm
 .idea/
