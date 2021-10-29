@@ -1,49 +1,29 @@
-import matplotlib.pyplot as plt
-import torchvision
-from os import listdir
-from os.path import isfile, join
-from PIL import Image
 import numpy as np
-from colorization.colorizers.util import *
+from PIL import Image
 import torch
 import torch.optim as optim
-import torch.utils.data as data
-import torch.nn as nn
-import torch.nn.functional as F
-import time
-from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
-import os
-import copy
-import cv2
+import torch.nn as nn
+import torchvision
+
 from utils_alexnet import *
 
-data_train_scaled = np.load('../resources/data_train_scaled.npy')
-data_test_scaled = np.load('../resources/data_test_scaled.npy')
 
-lab = ["cassette player", "chain saw", "church", "gas pump", "golf ball", "French horn", "parachute",
-          "Rhodesian ridgeback", "Samoyed", "English springer", "tench", "garbage truck"]
-labels = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0, 569]
+def get_labels(labels, num):
+    final_labels = None
+    for label in labels:
+        if final_labels is None:
+            final_labels = np.full(num, label)
+        else:
+            final_labels = np.concatenate((final_labels, np.full(num, label)), axis=0)
+    return final_labels
 
-train_labels = None
-for l in labels:
-    if train_labels is None:
-        train_labels = np.full(150, l)
-    else:
-        train_labels = np.concatenate((train_labels, np.full(150, l)), axis = 0)
-
-test_labels = None
-for l in labels:
-    if test_labels is None:
-        test_labels = np.full(50, l)
-    else:
-        test_labels = np.concatenate((test_labels, np.full(50, l)), axis = 0)
 
 class MyDataset(Dataset):
     def __init__(self, data, targets, transform=None):
         self.data = data
         self.targets = torch.LongTensor(targets)
-        #self.targets = targets
+        # self.targets = targets
         self.transform = transform
 
     def __getitem__(self, index):
@@ -60,6 +40,18 @@ class MyDataset(Dataset):
         return len(self.data)
 
 
+lab = ["cassette player", "chain saw", "church", "gas pump", "golf ball", "French horn", "parachute",
+          "Rhodesian ridgeback", "Samoyed", "English springer", "tench", "garbage truck"]
+labels = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0, 569]
+
+train_labels = get_labels(labels, 150)
+test_labels = get_labels(labels, 50)
+
+# Load scaled data
+data_train_scaled = np.load('../resources/data_train_scaled.npy')
+data_test_scaled = np.load('../resources/data_test_scaled.npy')
+
+# AlexNet requires images to be with shape: 3x256x256
 data_train_scaled = data_train_scaled.transpose((0, 3, 1, 2))
 data_test_scaled = data_test_scaled.transpose((0, 3, 1, 2))
 
@@ -70,13 +62,13 @@ test_dataset = MyDataset(list(data_test_scaled), test_labels)
 train_percentage = 0.8
 num_train_examples = int(len(train_dataset) * train_percentage)
 num_valid_examples = len(train_dataset) - num_train_examples
-train_dataset, valid_dataset = data.random_split(train_dataset, [num_train_examples, num_valid_examples])
+train_dataset, valid_dataset = torch.utils.data.random_split(train_dataset, [num_train_examples, num_valid_examples])
 
 # Create iterators:
 BATCH_SIZE = 64
-train_iterator = torch.utils.data.DataLoader(train_dataset, shuffle=True, batch_size=BATCH_SIZE)
-valid_iterator = torch.utils.data.DataLoader(valid_dataset, batch_size=BATCH_SIZE)
-test_iterator = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE)
+train_iterator = DataLoader(train_dataset, shuffle=True, batch_size=BATCH_SIZE)
+valid_iterator = DataLoader(valid_dataset, batch_size=BATCH_SIZE)
+test_iterator = DataLoader(test_dataset, batch_size=BATCH_SIZE)
 
 #for (x,y) in train_iterator:
 #    print(x.shape) # torch.Size([64, 3, 256, 256])
@@ -84,14 +76,14 @@ test_iterator = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE)
 
 # Pre-trained model:
 alexnet = torchvision.models.alexnet(pretrained=True)
-#print(alexnet.classifier[-1]) # Linear(in_features=4096, out_features=1000, bias=True)
+# print(alexnet.classifier[-1]) # Linear(in_features=4096, out_features=1000, bias=True)
 alexnet.double()
 
 # Freeze all layers except last Fully Connected layer:
 for parameter in alexnet.features.parameters():
-  parameter.requires_grad = False
+    parameter.requires_grad = False
 for parameter in alexnet.classifier[:-1].parameters():
-  parameter.requires_grad = False
+    parameter.requires_grad = False
 
 # Feature extraction:
 device = torch.device('cpu')
@@ -110,17 +102,18 @@ model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract.p
 
 test_loss_BW, test_acc_BW = evaluate(alexnet, test_iterator, criterion, device)
 
-with open('../resources/Test_Results_BW.txt', 'w') as f:
+# Save results to files
+with open('../resources/classification/Test_Results_BW.txt', 'w') as f:
     f.write("Test loss:" + str(test_loss_BW) + '\n')
     f.write("Test acc:" + str(test_acc_BW) + '\n')
 
-with open('../resources/Train_Results_BW.txt', 'w') as f:
+with open('../resources/classification/Train_Results_BW.txt', 'w') as f:
     f.write("Train loss:\n")
     f.writelines('\n'.join([str(i) for i in train_losses]))
     f.write("\nTrain acc:\n")
     f.writelines('\n'.join([str(i) for i in train_acc]))
 
-with open('../resources/Valid_Results_BW.txt', 'w') as f:
+with open('../resources/classification/Valid_Results_BW.txt', 'w') as f:
     f.write("Valid loss:\n")
     f.writelines('\n'.join([str(i) for i in valid_losses]))
     f.write("\nValid acc:\n")
