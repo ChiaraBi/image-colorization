@@ -233,10 +233,20 @@ train_iterator = torch.utils.data.DataLoader(train_dataset, shuffle=True, batch_
 valid_iterator = torch.utils.data.DataLoader(valid_dataset, batch_size=BATCH_SIZE)
 test_iterator = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE)
 
+for (x,y) in train_iterator:
+    print(x.shape) # torch.Size([64, 3, 256, 256])
+    print(y.shape) # torch.Size([64])
+
 # Pre-trained model:
 alexnet = torchvision.models.alexnet(pretrained=True)
 print(alexnet.classifier[-1]) # Linear(in_features=4096, out_features=1000, bias=True)
 alexnet.double()
+
+# Freeze all layers except last Fully Connected layer:
+for parameter in alexnet.features.parameters():
+  parameter.requires_grad = False
+for parameter in alexnet.classifier[:-1].parameters():
+  parameter.requires_grad = False
 
 # Feature extraction:
 device = torch.device('cpu')
@@ -249,10 +259,10 @@ alexnet = alexnet.to(device)
 N_EPOCHS = 30
 train_losses, train_acc, valid_losses, valid_acc = model_training(N_EPOCHS, alexnet, train_iterator,
                                                                   valid_iterator, optimizer, criterion,
-                                                                  device, 'alexnet_finetuning.pt')
+                                                                  device, 'alexnet_feat_extract.pt')
 
-model_testing(alexnet, test_iterator, criterion, device, 'alexnet_finetuning.pt')
+model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract.pt')
 
 _, test_acc_BW = evaluate(alexnet, test_iterator, criterion, device)
 
-np.save('../resources/test_BW_fine', test_acc_BW)
+np.save('../resources/test_BW', test_acc_BW)
