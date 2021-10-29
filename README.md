@@ -30,7 +30,7 @@ Other recent pretrained models:
 - install the requirements: `pip install -r requirements.txt`
 
 - run the model: 
-  - to colorize black and white images:`dahlBW.py`
+  - to colorize black and white images: `dahlBW.py`
   
   - to colorize ImageNet images: `dahlImageNet.py`
     
@@ -39,10 +39,11 @@ Other recent pretrained models:
 - install the requirements: `pip install -r requirements.txt`
 
 - run the model: 
-  - to colorize black and white images:`zhangBW.py`
+  - to colorize black and white images: `zhangBW.py`
   
   - to colorize ImageNet images: `zhangImageNet.py`
 
 ## ChromaGAN
 - create a virtual environment using python 3.6: `mkvirtualenv --python=python3 chromaGAN`
 - install the requirements: `pip install -r requirements_chromaGAN.txt`
+- run the model: `chromaGAN.py`
