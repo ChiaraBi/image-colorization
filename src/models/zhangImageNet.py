@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 import torch
 
-from colorization import colorizers
-from colorization.colorizers.util import load_img, preprocess_img, postprocess_tens
-
 import os
 from os import listdir
 from os.path import isfile, join
+
+from colorization import colorizers
+from colorization.colorizers.util import load_img, preprocess_img, postprocess_tens
 
 colorizer_eccv16 = colorizers.eccv16().eval()
 # colorizer_eccv16.cuda() # uncomment this if you're using GPU
@@ -14,7 +14,7 @@ colorizer_eccv16 = colorizers.eccv16().eval()
 # images' paths
 imageNet_input_dir = '../../img/original/ImageNet/'
 imageNet_output_dir = '../../img/colorized/zhang/ImageNet/'
-imageNet_output_dir = '../../img/colorized/siggraph/ImageNet/'
+# imageNet_output_dir = '../../img/colorized/siggraph/ImageNet/'  # use this path for Zhang's siggraph model
 
 # IMAGENET
 # directory list:

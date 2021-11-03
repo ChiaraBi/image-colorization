@@ -36,12 +36,12 @@ Other recent pretrained models:
     
 ## Zhang
 - create a virtual environment: `mkvirtualenv --python=python3 zhang`
-- install the requirements: `pip install -r requirements.txt`
+- install the requirements: `pip install -r requirements_zhang.txt`
+- move into the `models` folder: `cd src/models`
 
 - run the model: 
-  - to colorize black and white images: `zhangBW.py`
-  
-  - to colorize ImageNet images: `zhangImageNet.py`
+  - to colorize black and white images: `python3 zhangBW.py`
+  - to colorize ImageNet images: `python3 zhangImageNet.py`
 
 ## ChromaGAN
 - create a virtual environment using python 3.6: `mkvirtualenv --python=python3 chromaGAN`
