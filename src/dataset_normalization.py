@@ -3,7 +3,7 @@ import numpy as np
 from os import listdir
 from os.path import isfile, join
 
-from colorization.colorizers.util import *
+from src.models.colorization.colorizers.util import *
 
 orig_train = '../img/original/finetuning_train/'
 orig_test = '../img/original/finetuning_test/'

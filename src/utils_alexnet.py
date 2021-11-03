@@ -1,12 +1,8 @@
-import numpy as np
-from PIL import Image
-import torch
-import torch.nn.functional as F
 from torch.utils.data import Dataset
 
 import time
 
-from colorization.colorizers.util import *
+from src.models.colorization.colorizers.util import *
 
 
 def train(model, iterator, optimizer, criterion, device):

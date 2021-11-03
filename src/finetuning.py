@@ -1,21 +1,14 @@
-import matplotlib.pyplot as plt
-import torchvision
-from os import listdir
-from os.path import isfile, join
-from PIL import Image
-import numpy as np
-from colorization.colorizers.util import *
+import time
+
 import torch
 import torch.optim as optim
 import torch.utils.data as data
 import torch.nn as nn
 import torch.nn.functional as F
-import time
-from torchvision import transforms
-from torch.utils.data import Dataset, DataLoader
-import os
-import copy
-import cv2
+from torch.utils.data import Dataset
+import torchvision
+
+from src.models.colorization.colorizers.util import *
 
 
 def train(model, iterator, optimizer, criterion, device):
