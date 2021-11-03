@@ -28,7 +28,7 @@ Other recent pretrained models:
 ## Dahl
 - download the pretrained model and place the `colorize.tfmodel` file in the `models` folder
 - create a virtual environment: `mkvirtualenv --python=python3 dahl`
-- install the requirements: `pip install -r requirements.txt`
+- install the requirements: `pip install -r requirements_dahl.txt`
 - position yourself into the following folder: `cd src/models`
 
 - run the model: 
