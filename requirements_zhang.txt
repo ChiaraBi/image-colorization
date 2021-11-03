@@ -1,7 +1,7 @@
 argparse
-ipython
-matplotlib
-numpy
-Pillow
-scikit-image
-torch
+ipython==7.16.1
+matplotlib==3.3.4
+numpy==1.19.5
+Pillow==8.4.0
+scikit-image==0.17.2
+torch==1.10.0

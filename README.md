@@ -37,7 +37,7 @@ Other recent pretrained models:
 ## Zhang
 - create a virtual environment: `mkvirtualenv --python=python3 zhang`
 - install the requirements: `pip install -r requirements_zhang.txt`
-- move into the `models` folder: `cd src/models`
+- position yourself into the `models` folder: `cd src/models`
 
 - run the model: 
   - to colorize black and white images: `python3 zhangBW.py`
