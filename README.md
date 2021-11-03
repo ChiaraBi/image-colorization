@@ -26,24 +26,28 @@ Other recent pretrained models:
 - virtualenv wrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
 
 ## Dahl
+- download the pretrained model and place the `colorize.tfmodel` file in the `models` folder
 - create a virtual environment: `mkvirtualenv --python=python3 dahl`
 - install the requirements: `pip install -r requirements.txt`
+- position yourself into the following folder: `cd src/models`
 
 - run the model: 
-  - to colorize black and white images: `dahlBW.py`
-  
-  - to colorize ImageNet images: `dahlImageNet.py`
+  - to colorize black and white images: `python3 dahlBW.py`
+  - to colorize ImageNet images: `python3 dahlImageNet.py`
     
 ## Zhang
 - create a virtual environment: `mkvirtualenv --python=python3 zhang`
 - install the requirements: `pip install -r requirements_zhang.txt`
-- position yourself into the `models` folder: `cd src/models`
+- position yourself into the following folder: `cd src/models`
 
 - run the model: 
   - to colorize black and white images: `python3 zhangBW.py`
   - to colorize ImageNet images: `python3 zhangImageNet.py`
 
 ## ChromaGAN
+- download the pretrained model and place the `ChromaGAN.h5` file in the `models` folder
 - create a virtual environment using python 3.6: `mkvirtualenv --python=python3 chromaGAN`
 - install the requirements: `pip install -r requirements_chromaGAN.txt`
-- run the model: `chromaGAN.py`
+- position yourself into the following folder: `cd src/models`
+
+- run the model: `python3 chromaGAN.py`
