@@ -1,10 +1,12 @@
+from os import listdir
+from os.path import isfile, join
+
 from utils_alexnet import *
 import numpy as np
 import cv2
 
-orig_test = '../img/colorized/chromagan/finetuning_test/'
+orig_test = '../img/colorized/chromagan/finetuning_test'
 onlyfiles_test = [f for f in listdir(orig_test) if isfile(join(orig_test, f))]
-
 data_test = np.empty((len(onlyfiles_test), 256, 256, 3))
 i = 0
 for files in onlyfiles_test:

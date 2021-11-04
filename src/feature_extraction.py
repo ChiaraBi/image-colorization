@@ -44,7 +44,7 @@ num_valid_examples = len(train_dataset) - num_train_examples
 train_dataset, valid_dataset = torch.utils.data.random_split(train_dataset, [num_train_examples, num_valid_examples])
 
 # Create iterators:
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 train_iterator = DataLoader(train_dataset, shuffle=True, batch_size=BATCH_SIZE)
 valid_iterator = DataLoader(valid_dataset, batch_size=BATCH_SIZE)
 test_iterator = DataLoader(test_dataset, batch_size=BATCH_SIZE)
@@ -72,7 +72,7 @@ optimizer = optim.Adam(alexnet.parameters(), lr=1e-4)
 alexnet = alexnet.to(device)
 
 # Train the last FC layer:
-N_EPOCHS = 5
+N_EPOCHS = 2
 train_losses, train_acc, valid_losses, valid_acc = model_training(N_EPOCHS, alexnet, train_iterator,
                                                                   valid_iterator, optimizer, criterion,
                                                                   device, 'alexnet_feat_extract.pt')
