@@ -1,3 +1,4 @@
+import numpy as np
 from PIL import Image
 import torch
 import torchvision
@@ -10,10 +11,10 @@ from os.path import isfile, join
 model = torchvision.models.alexnet(pretrained=True)
 model.eval()
 
-imageNet_original_dir = '../img/original/ImageNet/'
-imageNet_colorized_dir = '../img/colorized/zhang/ImageNet/'
-# imageNet_colorized_dir = '../img/colorized/dahl/ImageNet/'
-# imageNet_colorized_dir = '../img/colorized/siggraph/ImageNet/'
+imageNet_original_dir = '../img/original/finetuning_test/'
+imageNet_colorized_dir = '../img/colorized/chromagan/finetuning_test/'
+# imageNet_colorized_dir = '../img/colorized/dahl/finetuning_test/'
+# imageNet_colorized_dir = '../img/colorized/siggraph/finetuning_test/'
 
 # Read the categories
 with open("../resources/imagenet_classes.txt", "r") as f:
@@ -21,14 +22,18 @@ with open("../resources/imagenet_classes.txt", "r") as f:
 
 onlydirectories = [f for f in listdir(imageNet_original_dir) if not isfile(join(imageNet_original_dir, f))]
 
+
 # ORIGINAL IMAGES ACCURACY
 '''
 accuracy = 0
 count = 0
 failed_files = {}
+idx = 0
 for d in onlydirectories:
-    onlyfiles = [f for f in listdir(imageNet_original_dir + d) if isfile(join(imageNet_original_dir + d, f))]
+    onlyfiles = [f for f in listdir(imageNet_original_dir + d) if (
+        isfile(join(imageNet_original_dir + d, f)) and f != ".DS_Store")]
     for i in onlyfiles:
+        idx += 1
         count += 1
         if count % 100 == 0:
             print(count)
@@ -51,18 +56,25 @@ for d in onlydirectories:
             # The output has unnormalized scores. To get probabilities, you can run a softmax on it.
             probabilities = torch.nn.functional.softmax(output[0], dim=0)
             prob, catid = torch.topk(probabilities, 1)
+
             if categories[catid[0]] == d:
-              accuracy += 1
+                accuracy += 1
         except:
             failed_files[i] = filename
             count -= 1
             continue
 
-original_accuracy = accuracy/count
+print("count", count)
+print("idx", idx)
+
+original_accuracy = accuracy / count
 print('Accuracy on original images: ', original_accuracy)
 
 with open('../resources/failed_files.txt', 'w') as convert_file:
     convert_file.write(json.dumps(failed_files))
+
+with open('../resources/classification/Test_Results_Original.txt', 'w') as f:
+    f.write("Test acc:" + str(original_accuracy) + '\n')
 '''
 
 #############################
@@ -75,10 +87,12 @@ with open('../resources/failed_files.txt', 'r') as f:
 
 accuracy = 0
 count = 0
+idx = 0
 failed_files_c = {}
 for d in onlydirectories:
     onlyfiles = [f for f in listdir(imageNet_colorized_dir + d) if isfile(join(imageNet_colorized_dir + d, f))]
     for i in onlyfiles:
+        idx += 1
         if i not in failed_files.keys():
             count += 1
             if count % 100 == 0:
@@ -109,8 +123,17 @@ for d in onlydirectories:
                 count -= 1
                 continue
 
+print("count", count)
+print("idx", idx)
+
 colorized_accuracy = accuracy/count
 print('Accuracy on colorized images: ', colorized_accuracy)
 
 with open('../resources/failed_files_c.txt', 'w') as convert_file:
     convert_file.write(json.dumps(failed_files_c))
+
+# TODO: specificare di quale modello sono le immagini colorate
+with open('../resources/classification/Test_Results_colorized_chromagan.txt', 'w') as f:
+    f.write("Test acc:" + str(colorized_accuracy) + '\n')
+    
+# '''
