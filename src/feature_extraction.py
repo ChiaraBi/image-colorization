@@ -8,7 +8,6 @@ import torchvision
 
 from utils_alexnet import *
 
-
 def get_labels(labels, num):
     final_labels = None
     for label in labels:
@@ -22,12 +21,15 @@ def get_labels(labels, num):
 lab = ["cassette player", "chain saw", "church", "gas pump", "golf ball", "French horn", "parachute",
           "Rhodesian ridgeback", "Samoyed", "English springer", "tench", "garbage truck"]
 labels = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0, 569]
+# labels_LOO = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0]
 
 train_labels = get_labels(labels, 150)
+# train_labels = get_labels(labels_LOO, 150)
 test_labels = get_labels(labels, 50)
 
 # Load scaled data
 data_train_scaled = np.load('../resources/data_train_scaled.npy')
+# data_train_scaled = np.load('../resources/data_train_scaled_LOO.npy')
 data_test_scaled = np.load('../resources/data_test_scaled.npy')
 
 # AlexNet requires images to be with shape: 3x256x256
@@ -72,7 +74,7 @@ optimizer = optim.Adam(alexnet.parameters(), lr=1e-4)
 alexnet = alexnet.to(device)
 
 # Train the last FC layer:
-N_EPOCHS = 2
+N_EPOCHS = 3
 train_losses, train_acc, valid_losses, valid_acc = model_training(N_EPOCHS, alexnet, train_iterator,
                                                                   valid_iterator, optimizer, criterion,
                                                                   device, 'alexnet_feat_extract.pt')
