@@ -7,6 +7,10 @@ img/original/ImageNet/*/_bbox/
 
 src/InstColorization/checkpoints/*
 
+# resources
+
+resources/data_*
+
 # pycharm
 .idea/
 __pycache__/
