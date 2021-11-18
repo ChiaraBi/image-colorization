@@ -6,10 +6,10 @@ from os.path import isfile, join
 
 from utils_alexnet import *
 
-# Image normalization
 model = 'chromagan'
-# path = '../img/original/test/'
+'''
 path = '../img/colorized/'+model+'/test/'
+# path = '../img/original/test/'
 
 onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
 
@@ -31,18 +31,22 @@ for i in range(0, data_metrics.shape[0]):
 
 # NxHxWx3 -> Nx3xHxW
 data_metrics_norm = data_metrics_norm.transpose((0, 3, 1, 2))
+np.save('../resources/data_metrics_'+model, data_metrics_norm)
+# np.save('../resources/data_metrics_original', data_metrics_norm)
+'''
 
-np.save('../resources/data_metrics_original', data_metrics_norm)
-# data_metrics_norm = np.load('../resources/data_metrics_original.npy')
+originals = np.load('../resources/data_metrics_original.npy')
+colorized = np.load('../resources/data_metrics_'+model+'.npy')
 
 # Transform Numpy into Pytorch tensor
-originals = torch.from_numpy(data_metrics_norm)
-colorized = None
+originals = torch.from_numpy(originals).float()
+colorized = torch.from_numpy(colorized).float()
 
-'''
 loss_fn_alex = lpips.LPIPS(net='alex')  # best forward scores
-loss_fn_vgg = lpips.LPIPS(net='vgg')  # closer to "traditional" perceptual loss, when used for optimization
+loss_fn_vgg = lpips.LPIPS(net='vgg')    # closer to "traditional" perceptual loss, when used for optimization
 
 # image should be RGB, IMPORTANT: normalized to [-1,1]
-d = loss_fn_alex(originals, colorized)
-'''
+d_alex = loss_fn_alex(originals, colorized)
+d_vgg = loss_fn_vgg(originals, colorized)
+torch.save(d_alex, '../resources/metrics_alex_'+model)
+torch.save(d_vgg, '../resources/metrics_vgg_'+model)
