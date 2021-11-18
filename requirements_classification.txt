@@ -1,2 +1,4 @@
 Pillow
 torchvision
+ipython
+scikit-image
