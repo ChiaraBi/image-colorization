@@ -13,7 +13,7 @@ import torchvision
 '''
 
 model = 'orig'  # orig, chromagan, dahl, siggraph, su, zhang
-test_path = ''
+
 if model == 'orig':
     test_path = '../img/original/finetuning_test_'
 else:
@@ -21,11 +21,11 @@ else:
 
 onlyfiles_test = [f for f in listdir(test_path) if isfile(join(test_path, f))]
 
-data_test = np.empty((len(onlyfiles_test), 256, 256, 3))
+data_test = np.empty((len(onlyfiles_test), 224, 224, 3))
 i = 0
 for files in onlyfiles_test:
     img = cv2.imread(join(test_path, files))
-    img_resized = cv2.resize(img, (256, 256), interpolation=cv2.INTER_AREA)
+    img_resized = cv2.resize(img, (224, 224), interpolation=cv2.INTER_AREA)
     #cv2.imwrite('../img/colorized/chromagan/'+files, img_resized)
     data_test[i, :, :, :] = img_resized
     i += 1
@@ -37,16 +37,7 @@ for i in range(0, data_test.shape[0]):
     data_test_01[i, :, :, 1] = (data_test[i, :, :, 1] - data_test[i, :, :, 1].min()) / (data_test[i, :, :, 1].max() - data_test[i, :, :, 1].min())
     data_test_01[i, :, :, 2] = (data_test[i, :, :, 2] - data_test[i, :, :, 2].min()) / (data_test[i, :, :, 2].max() - data_test[i, :, :, 2].min())
 
-# TODO: vedere come applicare transform
-transform = transforms.Compose([
-    transforms.Resize(256),
-    transforms.CenterCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize(
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225]
- )])
-
+# Normalization in mean:
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]
 
@@ -66,7 +57,7 @@ for l in labels:
 data_test_scaled = data_test_scaled.transpose((0, 3, 1, 2))
 test_dataset = MyDataset(list(data_test_scaled), test_labels)
 
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 test_iterator = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE)
 
 # USE TENSORFLOW IMPLEMENTATION FOR TESTING
@@ -78,10 +69,8 @@ criterion = nn.CrossEntropyLoss()
 criterion = criterion.to(device)
 alexnet = alexnet.to(device)
 
-# TODO: vedere come fare l'evaluation di AlexNet
-# model_testing(alexnet, test_iterator, criterion, device)
 test_loss, test_acc = evaluate(alexnet, test_iterator, criterion, device)
-
+print(test_acc)
 with open('../resources/classification/Test_'+model+'.txt', 'w') as f:
     f.write("Test loss:" + str(test_loss) + '\n')
     f.write("Test acc:" + str(test_acc) + '\n')

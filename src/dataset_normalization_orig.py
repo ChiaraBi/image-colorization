@@ -9,7 +9,6 @@ from utils_alexnet import *
 Dataset normalization for finetuning.
 '''
 orig_train = '../img/original/finetuning_train/'
-# orig_test = '../img/original/finetuning_test/'
 orig_test = '../img/original/finetuning_test_/'
 
 onlyfiles_train = [f for f in listdir(orig_train) if isfile(join(orig_train, f))]

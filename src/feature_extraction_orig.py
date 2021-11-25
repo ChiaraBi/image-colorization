@@ -33,7 +33,7 @@ train_labels = get_labels(labels, 150)
 test_labels = get_labels(labels, 50)
 
 # Load scaled data
-model = 'dahl'  # orig, chromagan, dahl, siggraph, su, zhang
+model = 'zhang'  # orig, chromagan, dahl, siggraph, su, zhang
 data_train_scaled = np.load('../resources/data_train_scaled_orig.npy')
 data_test_scaled = np.load('../resources/data_test_scaled_'+model+'.npy')
 

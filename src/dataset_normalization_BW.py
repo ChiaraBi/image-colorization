@@ -10,17 +10,20 @@ Dataset normalization for finetuning.
 '''
 
 orig_train = '../img/original/finetuning_train/'
-# orig_test = '../img/original/finetuning_test/'
 orig_test = '../img/original/finetuning_test_/'
 
 onlyfiles_train = [f for f in listdir(orig_train) if isfile(join(orig_train, f))]
 onlyfiles_test = [f for f in listdir(orig_test) if isfile(join(orig_test, f))]
 
-# data_train = np.empty((len(onlyfiles_train), 256, 256, 3))
-data_train = np.empty((len(onlyfiles_train)-150, 256, 256, 3))
+LOO = ''  # '_LOO' / ''
+if LOO == '':
+    dim = len(onlyfiles_train)
+else:
+    dim = len(onlyfiles_train)-150     # remove last class
+
+data_train = np.empty((dim, 256, 256, 3))
 i = 0
-# for files in onlyfiles_train:
-for files in onlyfiles_train[0:(len(onlyfiles_train)-150)]:   # remove last class
+for files in onlyfiles_train[0:dim]:
     img_array = load_img(join(orig_train, files))
     _, img_array_BW = preprocess_img(img_array, HW=(256, 256), resample=3)  # resize to 256x256x3 and turn into BW
 
@@ -30,8 +33,7 @@ for files in onlyfiles_train[0:(len(onlyfiles_train)-150)]:   # remove last clas
     print(i)
     i += 1
 
-# np.save('../resources/data_train', data_train)
-np.save('../resources/data_train_LOO', data_train)
+np.save('../resources/data_train_BW'+LOO, data_train)
 
 data_test = np.empty((len(onlyfiles_test), 256, 256, 3))
 i = 0
@@ -43,12 +45,11 @@ for files in onlyfiles_test:
     print(i)
     i += 1
 
-np.save('../resources/data_test', data_test)
+np.save('../resources/data_test_BW', data_test)
 
 
-# data_train = np.load('../resources/data_train.npy')
-data_train = np.load('../resources/data_train_LOO.npy')
-data_test = np.load('../resources/data_test.npy')
+data_train = np.load('../resources/data_train_BW'+LOO+'.npy')
+data_test = np.load('../resources/data_test_BW.npy')
 
 # Normalization in range [0,1]
 data_train_01 = np.empty(data_train.shape)
@@ -77,10 +78,8 @@ data_test_scaled[:, :, :, 0] = (data_test_01[:, :, :, 0] - train_mean[0]) / trai
 data_test_scaled[:, :, :, 1] = (data_test_01[:, :, :, 1] - train_mean[1]) / train_std[1]
 data_test_scaled[:, :, :, 2] = (data_test_01[:, :, :, 2] - train_mean[2]) / train_std[2]
 
-# np.save('../resources/train_mean', train_mean)
-np.save('../resources/train_mean_LOO', train_mean)
-np.save('../resources/train_std', train_std)
-# np.save('../resources/data_train_scaled', data_train_scaled)
-np.save('../resources/data_train_scaled_LOO', data_train_scaled)
-np.save('../resources/data_test_scaled', data_test_scaled)
+np.save('../resources/train_mean_BW'+LOO, train_mean)
+np.save('../resources/train_std_BW'+LOO, train_std)
+np.save('../resources/data_train_scaled_BW'+LOO, data_train_scaled)
+np.save('../resources/data_test_scaled_BW', data_test_scaled)
 
