@@ -8,6 +8,12 @@ import torchvision
 
 from utils_alexnet import *
 
+'''
+Fine tuning on original ImageNet images.
+- model='orig' -> the last layer of the model is trained and tested on a subset of the ImageNet dataset.
+- model='dahl' (or 'chromagan'/'siggraph'/'su'/'zhang') -> the model is tested on the colorized images of the respective
+models.
+'''
 
 def get_labels(labels, num):
     final_labels = None
@@ -27,8 +33,9 @@ train_labels = get_labels(labels, 150)
 test_labels = get_labels(labels, 50)
 
 # Load scaled data
+model = 'dahl'  # orig, chromagan, dahl, siggraph, su, zhang
 data_train_scaled = np.load('../resources/data_train_scaled_orig.npy')
-data_test_scaled = np.load('../resources/data_test_scaled_orig.npy')
+data_test_scaled = np.load('../resources/data_test_scaled_'+model+'.npy')
 
 # AlexNet requires images to be with shape: 3x256x256
 data_train_scaled = data_train_scaled.transpose((0, 3, 1, 2))
@@ -58,42 +65,45 @@ alexnet = torchvision.models.alexnet(pretrained=True)
 # print(alexnet.classifier[-1]) # Linear(in_features=4096, out_features=1000, bias=True)
 alexnet.double()
 
-# Freeze all layers except last Fully Connected layer:
-for parameter in alexnet.features.parameters():
-    parameter.requires_grad = False
-for parameter in alexnet.classifier[:-1].parameters():
-    parameter.requires_grad = False
-
 # Feature extraction:
 device = torch.device('cpu')
 criterion = nn.CrossEntropyLoss()
 criterion = criterion.to(device)
-optimizer = optim.Adam(alexnet.parameters(), lr=1e-4)
 alexnet = alexnet.to(device)
 
 # Train the last FC layer:
-N_EPOCHS = 2
-train_losses, train_acc, valid_losses, valid_acc = model_training(N_EPOCHS, alexnet, train_iterator,
-                                                                  valid_iterator, optimizer, criterion,
-                                                                  device, 'alexnet_feat_extract.pt')
+if model == 'orig':
+    # Freeze all layers except last Fully Connected layer:
+    for parameter in alexnet.features.parameters():
+        parameter.requires_grad = False
+    for parameter in alexnet.classifier[:-1].parameters():
+        parameter.requires_grad = False
 
-model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract.pt')
+    optimizer = optim.Adam(alexnet.parameters(), lr=1e-4)
+
+    N_EPOCHS = 2
+    train_losses, train_acc, valid_losses, valid_acc = model_training(N_EPOCHS, alexnet, train_iterator,
+                                                                  valid_iterator, optimizer, criterion,
+                                                                  device, 'alexnet_feat_extract_orig.pt')
+
+model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract_orig.pt')
 
 test_loss_BW, test_acc_BW = evaluate(alexnet, test_iterator, criterion, device)
 
 # Save results to files
-with open('../resources/classification/Test_Results_orig.txt', 'w') as f:
+with open('../resources/classification/feature_extraction_orig/Test_'+model+'.txt', 'w') as f:
     f.write("Test loss:" + str(test_loss_BW) + '\n')
     f.write("Test acc:" + str(test_acc_BW) + '\n')
 
-with open('../resources/classification/Train_Results_orig.txt', 'w') as f:
-    f.write("Train loss:\n")
-    f.writelines('\n'.join([str(i) for i in train_losses]))
-    f.write("\nTrain acc:\n")
-    f.writelines('\n'.join([str(i) for i in train_acc]))
+if model == 'orig':
+    with open('../resources/classification/feature_extraction_orig/Train_orig.txt', 'w') as f:
+        f.write("Train loss:\n")
+        f.writelines('\n'.join([str(i) for i in train_losses]))
+        f.write("\nTrain acc:\n")
+        f.writelines('\n'.join([str(i) for i in train_acc]))
 
-with open('../resources/classification/Valid_Results_orig.txt', 'w') as f:
-    f.write("Valid loss:\n")
-    f.writelines('\n'.join([str(i) for i in valid_losses]))
-    f.write("\nValid acc:\n")
-    f.writelines('\n'.join([str(i) for i in valid_acc]))
+    with open('../resources/classification/feature_extraction_orig/Valid_orig.txt', 'w') as f:
+        f.write("Valid loss:\n")
+        f.writelines('\n'.join([str(i) for i in valid_losses]))
+        f.write("\nValid acc:\n")
+        f.writelines('\n'.join([str(i) for i in valid_acc]))

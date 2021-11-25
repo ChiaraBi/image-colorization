@@ -5,6 +5,9 @@ from os.path import isfile, join
 
 from utils_alexnet import *
 
+'''
+Dataset normalization for finetuning.
+'''
 orig_train = '../img/original/finetuning_train/'
 # orig_test = '../img/original/finetuning_test/'
 orig_test = '../img/original/finetuning_test_/'

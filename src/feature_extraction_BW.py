@@ -8,6 +8,15 @@ import torchvision
 
 from utils_alexnet import *
 
+'''
+
+Fine tuning on black and white version of ImageNet images.
+- LOO = '' -> the last layer of the model is trained and tested on a subset of BW ImageNet images.
+- LOO = '_LOO' -> the last layer of the model is trained on a substet of BW ImageNet image except for one class. The
+model is then tested on all the BW classes.
+
+'''
+
 def get_labels(labels, num):
     final_labels = None
     for label in labels:
@@ -28,8 +37,8 @@ train_labels = get_labels(labels, 150)
 test_labels = get_labels(labels, 50)
 
 # Load scaled data
-data_train_scaled = np.load('../resources/data_train_scaled.npy')
-# data_train_scaled = np.load('../resources/data_train_scaled_LOO.npy')
+LOO = ''  # _LOO
+data_train_scaled = np.load('../resources/data_train_scaled'+LOO+'.npy')
 data_test_scaled = np.load('../resources/data_test_scaled.npy')
 
 # AlexNet requires images to be with shape: 3x256x256
@@ -84,17 +93,17 @@ model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract.p
 test_loss_BW, test_acc_BW = evaluate(alexnet, test_iterator, criterion, device)
 
 # Save results to files
-with open('../resources/classification/Test_Results_BW.txt', 'w') as f:
+with open('../resources/classification/feature_extraction_BW/Test_BW'+LOO+'.txt', 'w') as f:
     f.write("Test loss:" + str(test_loss_BW) + '\n')
     f.write("Test acc:" + str(test_acc_BW) + '\n')
 
-with open('../resources/classification/Train_Results_BW.txt', 'w') as f:
+with open('../resources/classification/feature_extraction_BW/Train_BW'+LOO+'.txt', 'w') as f:
     f.write("Train loss:\n")
     f.writelines('\n'.join([str(i) for i in train_losses]))
     f.write("\nTrain acc:\n")
     f.writelines('\n'.join([str(i) for i in train_acc]))
 
-with open('../resources/classification/Valid_Results_BW.txt', 'w') as f:
+with open('../resources/classification/feature_extraction_BW/Valid_BW'+LOO+'.txt', 'w') as f:
     f.write("Valid loss:\n")
     f.writelines('\n'.join([str(i) for i in valid_losses]))
     f.write("\nValid acc:\n")
