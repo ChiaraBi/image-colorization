@@ -1,76 +1,95 @@
+import numpy as np
+from PIL import Image
+import torch
+import torchvision
+from torchvision import transforms
+
+import json
 from os import listdir
 from os.path import isfile, join
 
-from utils_alexnet import *
-import numpy as np
-import cv2
-import torch.nn as nn
-import torchvision
-
 '''
-1. Dataset normalization with respect to the entire ImageNet.
-2. Classification using the pretrained AlexNet without fine tuning.
+Classification using the pretrained AlexNet without fine tuning.
 '''
-
-model = 'orig'  # orig, chromagan, dahl, siggraph, su, zhang
-
-if model == 'orig':
-    test_path = '../img/original/finetuning_test_'
-else:
-    test_path = '../img/colorized/'+model+'/finetuning_test_'
-
-onlyfiles_test = [f for f in listdir(test_path) if isfile(join(test_path, f))]
-
-data_test = np.empty((len(onlyfiles_test), 224, 224, 3))
-i = 0
-for files in onlyfiles_test:
-    img = cv2.imread(join(test_path, files))
-    img_resized = cv2.resize(img, (224, 224), interpolation=cv2.INTER_AREA)
-    #cv2.imwrite('../img/colorized/chromagan/'+files, img_resized)
-    data_test[i, :, :, :] = img_resized
-    i += 1
-
-# Normalization in range [0,1]
-data_test_01 = np.empty(data_test.shape)
-for i in range(0, data_test.shape[0]):
-    data_test_01[i, :, :, 0] = (data_test[i, :, :, 0] - data_test[i, :, :, 0].min()) / (data_test[i, :, :, 0].max() - data_test[i, :, :, 0].min())
-    data_test_01[i, :, :, 1] = (data_test[i, :, :, 1] - data_test[i, :, :, 1].min()) / (data_test[i, :, :, 1].max() - data_test[i, :, :, 1].min())
-    data_test_01[i, :, :, 2] = (data_test[i, :, :, 2] - data_test[i, :, :, 2].min()) / (data_test[i, :, :, 2].max() - data_test[i, :, :, 2].min())
-
-# Normalization in mean:
-mean = [0.485, 0.456, 0.406]
-std = [0.229, 0.224, 0.225]
-
-data_test_scaled = np.empty(data_test_01.shape)
-data_test_scaled[:, :, :, 0] = (data_test_01[:, :, :, 0] - mean[0]) / std[0]
-data_test_scaled[:, :, :, 1] = (data_test_01[:, :, :, 1] - mean[1]) / std[1]
-data_test_scaled[:, :, :, 2] = (data_test_01[:, :, :, 2] - mean[2]) / std[2]
-
-labels = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0, 569]
-test_labels = None
-for l in labels:
-    if test_labels is None:
-        test_labels = np.full(50, l)
-    else:
-        test_labels = np.concatenate((test_labels, np.full(50, l)), axis=0)
-
-data_test_scaled = data_test_scaled.transpose((0, 3, 1, 2))
-test_dataset = MyDataset(list(data_test_scaled), test_labels)
-
-BATCH_SIZE = 32
-test_iterator = torch.utils.data.DataLoader(test_dataset, batch_size=BATCH_SIZE)
-
-# USE TENSORFLOW IMPLEMENTATION FOR TESTING
 
 alexnet = torchvision.models.alexnet(pretrained=True)
-alexnet.double()
-device = torch.device('cpu')
-criterion = nn.CrossEntropyLoss()
-criterion = criterion.to(device)
-alexnet = alexnet.to(device)
+alexnet.eval()
 
-test_loss, test_acc = evaluate(alexnet, test_iterator, criterion, device)
-print(test_acc)
+model = 'orig'  # orig, BW, chromagan, dahl, siggraph, su, zhang
+if model == 'orig' or model == 'BW':
+    test_path = '../img/original/finetuning_test/'
+else:
+    test_path = '../img/colorized/'+model+'/finetuning_test/'
+
+# Read the ImageNet categories:
+with open("../resources/imagenet_classes.txt", "r") as f:
+    categories = [s.strip() for s in f.readlines()]
+
+failed_files = {}
+if model != 'orig':
+    with open('../resources/failed_files.txt') as f:
+        failed_files = json.loads(f.read())
+
+onlydirectories = [f for f in listdir(test_path) if not isfile(join(test_path, f))]
+
+if model == 'BW':
+    preprocess = transforms.Compose([
+        transforms.Grayscale(num_output_channels=3),
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+else:
+    preprocess = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+
+# CALCULATION OF ACCURACY
+accuracy = 0
+count = 0
+idx = 0
+for d in onlydirectories:
+    onlyfiles = [f for f in listdir(test_path + d) if isfile(join(test_path + d, f))]
+    for i in onlyfiles:
+        idx += 1
+        if i not in failed_files.keys():
+            count += 1
+            if count % 100 == 0:
+                print(count)
+            filename = join(test_path + d, i)
+            input_image = Image.open(filename)
+            try:
+                input_tensor = preprocess(input_image)
+                input_batch = input_tensor.unsqueeze(0)  # create a mini-batch as expected by the model
+
+                with torch.no_grad():
+                    # Tensor of shape 1000, with confidence scores over Imagenet's 1000 classes
+                    output = alexnet(input_batch)
+
+                # The output has unnormalized scores. To get probabilities, you can run a softmax on it.
+                probabilities = torch.nn.functional.softmax(output[0], dim=0)
+                prob, catid = torch.topk(probabilities, 1)
+                if categories[catid[0]] == d:
+                    accuracy += 1
+            except:
+                failed_files[i] = filename
+                count -= 1
+                continue
+
+print("count", count)    # 585
+print("idx", idx)        # 600
+                         # -> 15 failed files
+
+accuracy = accuracy / count
+print('Accuracy on '+model+' images: ', accuracy)
+
+if model == 'orig':
+    with open('../resources/failed_files.txt', 'w') as f:
+        f.write(json.dumps(failed_files))
+
 with open('../resources/classification/Test_'+model+'.txt', 'w') as f:
-    f.write("Test loss:" + str(test_loss) + '\n')
-    f.write("Test acc:" + str(test_acc) + '\n')
+    f.write("Test acc:" + str(accuracy) + '\n')

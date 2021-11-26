@@ -1,2 +1,1 @@
-Test loss:3.4097468073482
-Test acc:0.34375
+Test acc:0.495
