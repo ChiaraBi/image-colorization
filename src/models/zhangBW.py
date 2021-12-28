@@ -15,8 +15,8 @@ bnw_input_dir = '../../img/original/BlackAndWhite/'
 bnw_output_dir = '../../img/colorized/zhang/test/BlackAndWhite'
 # bnw_input_dir = '../../img/original/test/'
 # bnw_output_dir = '../../img/colorized/zhang/test/test'
-# bnw_input_dir = '../../img/filtered/blurred'
-# bnw_output_dir = '../../img/colorized/zhang/filtered/blurred'
+bnw_input_dir = '../../img/filtered/blurred'
+bnw_output_dir = '../../img/colorized/zhang/filtered/blurred'
 
 # BLACK AND WHITE
 onlyfiles = [f for f in listdir(bnw_input_dir) if isfile(join(bnw_input_dir, f))]
