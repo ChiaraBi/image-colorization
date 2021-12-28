@@ -13,6 +13,8 @@ colorizer_siggraph17 = colorizers.siggraph17().eval()
 # images' paths
 bnw_input_dir = '../../img/original/test/'
 bnw_output_dir = '../../img/colorized/siggraph/test'
+bnw_input_dir = '../../img/filtered/cartoonized'
+bnw_output_dir = '../../img/colorized/zhang/filtered/cartoonized'
 
 # BLACK AND WHITE
 onlyfiles = [f for f in listdir(bnw_input_dir) if isfile(join(bnw_input_dir, f))]

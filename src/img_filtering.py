@@ -4,6 +4,10 @@ import numpy as np
 from os import listdir
 from os.path import isfile, join
 
+'''
+Apply blurring filter, increase/decrease constrast, increase/decrease luminosity.
+'''
+
 
 def apply_blur_filter_and_save(img, kernel_sizes, output_path):
     filter_name = 'blur'
@@ -32,9 +36,9 @@ def change_luminosity_and_save(img, luminosity_values, output_path):
 input_path = '../img/original/filtering'
 output_path = '../img/filtered/'
 img_paths = [f for f in listdir(input_path) if isfile(join(input_path, f))]
+
 for img_name in img_paths:
     img_bgr = cv2.imread(join(input_path, img_name))  # BGR image
-    # img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)  # RGB image
 
     # Blur filters
     kernel_sizes = [3, 7, 11]
@@ -53,8 +57,4 @@ for img_name in img_paths:
     output_folder = join(output_path, 'luminosity')
     o_path = join(output_folder, img_name[:-5])
     change_luminosity_and_save(img_bgr, luminosity_values, o_path)
-
-
-
-
 
