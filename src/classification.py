@@ -22,7 +22,7 @@ else:
     test_path = '../img/colorized/'+model+'/finetuning_test/'
 
 # Read the ImageNet categories:
-with open("../resources/imagenet_classes.txt", "r") as f:
+with open("../resources/img_classes/imagenet_classes.txt", "r") as f:
     categories = [s.strip() for s in f.readlines()]
 
 failed_files = {}

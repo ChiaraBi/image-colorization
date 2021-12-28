@@ -1,5 +1,5 @@
-# Vision project
-Project for the university course Vision and Cognitive Services.
+# Image colorization
+Project for the university course of Vision and Cognitive Services.
 
 We used a small subset of ImageNet, Pascal, Places and other datasets:
 - Imagenette: https://github.com/fastai/imagenette
