@@ -36,12 +36,12 @@ bnw_output_dir = '../../img/colorized/dahl/BlackAndWhite/'
 # bnw_input_dir = '../../img/original/test/'
 # bnw_output_dir = '../../img/colorized/dahl/test/'
 
-# bnw_input_dir = '../../img/filtered/luminosity'
-# bnw_output_dir = '../../img/colorized/dahl/filtered/luminosity'
+# bnw_input_dir = '../../img/filtered/manual_contrast'
+# bnw_output_dir = '../../img/colorized/dahl/filtered/manual_contrast'
 
 # BLACK AND WHITE
 
-onlyfiles = [f for f in listdir(bnw_input_dir) if (isfile(join(bnw_input_dir, f)) and f is not '.DS_Store')]
+onlyfiles = [f for f in listdir(bnw_input_dir) if (isfile(join(bnw_input_dir, f)) and f != '.DS_Store')]
 
 for i in onlyfiles:
     try:
