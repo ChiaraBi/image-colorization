@@ -15,7 +15,7 @@ Classification using the pretrained AlexNet without fine tuning.
 alexnet = torchvision.models.alexnet(pretrained=True)
 alexnet.eval()
 
-model = 'orig'  # orig, BW, chromagan, dahl, siggraph, su, zhang
+model = 'BW'  # orig, BW, chromagan, dahl, siggraph, su, zhang
 if model == 'orig' or model == 'BW':
     test_path = '../img/original/finetuning_test/'
 else:

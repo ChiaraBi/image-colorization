@@ -10,7 +10,7 @@ from utils_alexnet import *
 
 '''
 
-Fine tuning on black and white version of ImageNet images.
+Feature extraction on black and white version of ImageNet images.
 - LOO = '' -> the last layer of the model is trained and tested on a subset of BW ImageNet images.
 - LOO = '_LOO' -> the last layer of the model is trained on a substet of BW ImageNet image except for one class. The
 model is then tested on all the BW classes.
