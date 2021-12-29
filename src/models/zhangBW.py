@@ -15,11 +15,11 @@ bnw_input_dir = '../../img/original/BlackAndWhite/'
 bnw_output_dir = '../../img/colorized/zhang/test/BlackAndWhite'
 # bnw_input_dir = '../../img/original/test/'
 # bnw_output_dir = '../../img/colorized/zhang/test/test'
-bnw_input_dir = '../../img/filtered/blurred'
-bnw_output_dir = '../../img/colorized/zhang/filtered/blurred'
+# bnw_input_dir = '../../img/filtered/manual_contrast'
+# bnw_output_dir = '../../img/colorized/zhang/filtered/manual_contrast'
 
 # BLACK AND WHITE
-onlyfiles = [f for f in listdir(bnw_input_dir) if isfile(join(bnw_input_dir, f))]
+onlyfiles = [f for f in listdir(bnw_input_dir) if (isfile(join(bnw_input_dir, f)) and f != '.DS_Store')]
 
 count = 0
 for i in onlyfiles:
