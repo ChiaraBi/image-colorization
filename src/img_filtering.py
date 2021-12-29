@@ -5,7 +5,7 @@ from os import listdir
 from os.path import isfile, join
 
 '''
-Apply blurring filter, increase/decrease constrast, increase/decrease luminosity.
+Apply blurring filter, increase/decrease contrast, increase/decrease luminosity.
 '''
 
 
