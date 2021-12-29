@@ -1,12 +1,14 @@
 import lpips
 import torch
 import numpy as np
+import json
 from os import listdir
 from os.path import isfile, join
 
 from utils_alexnet import *
 
-model = 'zhang'
+model = 'chromagan'
+
 '''
 path = '../img/colorized/'+model+'/test/'
 # path = '../img/original/test/'
@@ -35,6 +37,7 @@ np.save('../resources/data_metrics_'+model, data_metrics_norm)
 # np.save('../resources/data_metrics_original', data_metrics_norm)
 '''
 
+'''
 originals = np.load('../resources/data_metrics_original.npy')
 colorized = np.load('../resources/data_metrics_'+model+'.npy')
 
@@ -43,13 +46,20 @@ originals = torch.from_numpy(originals).float()
 colorized = torch.from_numpy(colorized).float()
 
 loss_fn_alex = lpips.LPIPS(net='alex')  # best forward scores
-#loss_fn_vgg = lpips.LPIPS(net='vgg')    # closer to "traditional" perceptual loss, when used for optimization
+# loss_fn_vgg = lpips.LPIPS(net='vgg')    # closer to "traditional" perceptual loss, when used for optimization
 
 # image should be RGB, IMPORTANT: normalized to [-1,1]
 d_alex = loss_fn_alex(originals, colorized)   # type: toarch.FloatTensor
-#d_vgg = loss_fn_vgg(originals, colorized)
+# d_vgg = loss_fn_vgg(originals, colorized)
 
 torch.save(d_alex, '../resources/metrics_alex_'+model+'.pt')
-#torch.save(d_vgg, '../resources/metrics_vgg_'+model)
+# torch.save(d_vgg, '../resources/metrics_vgg_'+model)
 
-#torch.load('file.pt')
+# torch.load('file.pt')
+'''
+
+m = torch.load('../resources/metrics_alex_'+model+'.pt')
+metrics = dict(max=m.max().item(), min=m.min().item(), mean=m.mean().item(), std=m.std().item())
+print(metrics)
+with open('../resources/metrics_alex_'+model+'.txt', 'w') as f:
+    f.write(json.dumps(metrics))
