@@ -15,13 +15,15 @@ from os.path import isfile, join
 # DIRECTORY INFORMATION
 DATA_DIR = os.path.join('../../img/original/test')
 OUT_DIR = os.path.join('../../img/colorized/chromagan/test')
+# DATA_DIR = os.path.join('../../img/filtered/manual_contrast')
+# OUT_DIR = os.path.join('../../img/colorized/chromagan/filtered/manual_contrast')
 MODEL_DIR = os.path.join('../../models')
 BATCH_SIZE = 1
 
 # TRAINING INFORMATION
 PRETRAINED = "../../models/ChromaGAN.h5"
 
-file_list = [f for f in listdir(DATA_DIR) if isfile(join(DATA_DIR, f))]
+file_list = [f for f in listdir(DATA_DIR) if (isfile(join(DATA_DIR, f)) and f != '.DS_Store')]
 size = len(file_list)  # 2323
 
 
