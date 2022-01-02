@@ -8,7 +8,7 @@ from os.path import isfile, join
 import tensorflow as tf
 #from utils_alexnet import *
 
-model = 'chromagan'   # su, dahl, zhang, siggraph
+model = 'su'   # dahl, siggraph
 
 '''
 if model == 'original':
@@ -30,11 +30,12 @@ for files in onlyfiles:
 
 np.save('../resources/data_metrics_'+model+'_0_255', data_metrics)
 '''
-'''
+
+
 originals = np.load('../resources/data_metrics_original_0_255.npy')
 colorized = np.load('../resources/data_metrics_'+model+'_0_255.npy')
 
-batch = 22   # range in [0, 22]
+batch = 1   # range in [0, 22]
 ssim = []
 psnr = []
 
@@ -103,3 +104,4 @@ with open('../resources/metrics_ssim_'+model+'.txt', 'w') as f:
 
 with open('../resources/metrics_psnr_'+model+'.txt', 'w') as f:
     f.write(json.dumps(str(metrics_psnr)))
+'''
