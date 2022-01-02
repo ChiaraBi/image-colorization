@@ -5,7 +5,7 @@ We used a small subset of ImageNet, Pascal, Places and other datasets:
 - Imagenette: https://github.com/fastai/imagenette
 - https://github.com/EliSchwartz/imagenet-sample-images
 - Pascal: https://deepai.org/dataset/pascal-voc
-- Places: https://paperswithcode.com/dataset/places
+- Landscapes: https://www.kaggle.com/arnaud58/landscape-pictures?select=00000000.jpg
 - Birds: https://www.kaggle.com/gpiosenka/100-bird-species
 - Flowers: https://www.robots.ox.ac.uk/~vgg/data/flowers/102/
 

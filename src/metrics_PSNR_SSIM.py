@@ -3,10 +3,8 @@ import json
 import pickle
 import os
 from os import listdir
-#import torch
 from os.path import isfile, join
 import tensorflow as tf
-#from utils_alexnet import *
 
 model = 'siggraph'
 

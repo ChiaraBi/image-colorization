@@ -45,16 +45,15 @@ originals = torch.from_numpy(originals).float()
 colorized = torch.from_numpy(colorized).float()
 
 loss_fn_alex = lpips.LPIPS(net='alex')  # best forward scores
-# loss_fn_vgg = lpips.LPIPS(net='vgg')    # closer to "traditional" perceptual loss, when used for optimization
+# loss_fn_vgg = lpips.LPIPS(net='vgg')  # closer to "traditional" perceptual loss, when used for optimization
 
 # image should be RGB, IMPORTANT: normalized to [-1,1]
-d_alex = loss_fn_alex(originals, colorized)   # type: toarch.FloatTensor
+d_alex = loss_fn_alex(originals, colorized)   # type: torch.FloatTensor
 # d_vgg = loss_fn_vgg(originals, colorized)
 
 torch.save(d_alex, '../resources/metrics_alex_'+model+'.pt')
 
 # torch.save(d_vgg, '../resources/metrics_vgg_'+model)
-# torch.load('file.pt')
 
 m = torch.load('../resources/metrics_alex_'+model+'.pt')
 metrics = dict(max=m.max().item(), idx_max=m.argmax().item(),
