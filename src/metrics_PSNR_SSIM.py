@@ -8,7 +8,7 @@ from os.path import isfile, join
 import tensorflow as tf
 #from utils_alexnet import *
 
-model = 'su'   # dahl, siggraph
+model = 'dahl'   # siggraph
 
 '''
 if model == 'original':
@@ -35,7 +35,7 @@ np.save('../resources/data_metrics_'+model+'_0_255', data_metrics)
 originals = np.load('../resources/data_metrics_original_0_255.npy')
 colorized = np.load('../resources/data_metrics_'+model+'_0_255.npy')
 
-batch = 1   # range in [0, 22]
+batch = 0   # range in [0, 22]
 ssim = []
 psnr = []
 
