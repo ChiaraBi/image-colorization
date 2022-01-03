@@ -29,7 +29,7 @@ for files in onlyfiles:
 np.save('../resources/data_metrics_'+model+'_0_255', data_metrics)
 '''
 
-'''
+
 originals = np.load('../resources/data_metrics_original_0_255.npy')
 colorized = np.load('../resources/data_metrics_'+model+'_0_255.npy')
 
@@ -77,7 +77,7 @@ with open('../resources/metrics_batches/metrics_psnr_' + model + '_batch_' + str
     pickle.dump(psnr, fp)
 
 
-'''
+
 # Compute statistics:
 with open('../resources/metrics_batches/metrics_ssim_' + model + '_batch_' + str(22) + '.txt', 'rb') as fp:
     ssim = pickle.load(fp)
