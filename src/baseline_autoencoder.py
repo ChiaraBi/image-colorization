@@ -39,8 +39,8 @@ decoder_output = UpSampling2D((2, 2))(decoder_output)
 # complete model
 model = Model(inputs=inputs, outputs=decoder_output)
 model.compile(loss='mse', optimizer='adam', metrics=['acc'])
-
 print(model.summary())
+
 
 cartoon_dir = '../img/original/test_cartoon/'
 
@@ -77,21 +77,21 @@ epochs = 20
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
 
 model_json = model.to_json()
-with open('model_'+str(epochs)+'.json', "w") as json_file:
+with open('model_cartoon_'+str(epochs)+'.json', "w") as json_file:
     json_file.write(model_json)
 # serialize weights to HDF5
-model.save_weights('model_'+str(epochs)+'.h5')
+model.save_weights('model_cartoon_'+str(epochs)+'.h5')
 print("Saved model to disk")
 
 
 epochs = 20
 # load json and create model
-json_file = open('model_'+str(epochs)+'.json', 'r')
+json_file = open('model_cartoon_'+str(epochs)+'.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 loaded_model = model_from_json(loaded_model_json)
 # load weights into new model
-loaded_model.load_weights('model_'+str(epochs)+'.h5')
+loaded_model.load_weights('model_cartoon_'+str(epochs)+'.h5')
 print("Loaded model from disk")
 
 
@@ -124,7 +124,7 @@ for filename in listdir(cartoon_dir):
     L.append(l)
 
 
-results_dir = '../img/colorized/baseline/epochs_'+str(epochs)+'/'
+results_dir = '../img/colorized/baseline/baseline_cartoon/epochs_'+str(epochs)+'/'
 
 results = np.empty((dim, dim, 3))
 img = 0
