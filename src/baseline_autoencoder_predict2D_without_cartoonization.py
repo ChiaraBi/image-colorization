@@ -95,14 +95,14 @@ loaded_model.load_weights('model_2D_without_cartoonization_'+str(epochs)+'.h5')
 print("Loaded model from disk")
 print()
 
-results_dir = '../img/colorized/baseline/baseline2D_without_colorization/epochs_'+str(epochs)+'/'
+results_dir = '../img/colorized/baseline/baseline2D_without_cartoon/epochs_'+str(epochs)+'/'
 
 results = np.empty((dim, dim, 3))
 cartoon_ab = loaded_model.predict(BW)
 cartoon_ab = 200 * cartoon_ab - 100
 img = 0
 for filename in listdir(original_dir):
-    img_ab_predicted = cartoon_ab[img, dim, dim, 2]
+    img_ab_predicted = cartoon_ab[img, :, :, :]
 
     img_rgb = img_to_array(load_img(original_dir + filename, target_size=(dim, dim)))
     img_rgb = 1.0 / 255 * img_rgb
