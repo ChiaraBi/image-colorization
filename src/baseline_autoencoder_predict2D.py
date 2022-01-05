@@ -52,17 +52,14 @@ for filename in listdir(cartoon_dir):
     print(i)
     data_orig = img_to_array(load_img(cartoon_dir + filename, target_size=(dim, dim)))
     data_orig = 1.0 / 255 * data_orig
-
     data_orig_lab = color.rgb2lab(data_orig)
-    data_orig_ab = data_orig_lab[:, :, 1:3]
-    data_orig_ab[:, :, 0] = (data_orig_ab[:, :, 0] + 100) / 200
-    data_orig_ab[:, :, 1] = (data_orig_ab[:, :, 1] + 100) / 200
 
-    data_orig_BW = data_orig_lab[:, :, 0]
-    data_orig_BW = 1.0 / 100 * data_orig_BW
+    data_orig_ab = data_orig_lab[:, :, 1:3]
+    data_orig_l = data_orig_lab[:, :, 0]
+    data_orig_l = data_orig_lab[:, :, 0]  / 100  # PROVA A RUNNARE SENZA QUESTA NORMALIZZAZIONE SE I RISULTATI FANNO CACARE
 
     Col.append(data_orig_ab)
-    BW.append(data_orig_BW)
+    BW.append(data_orig_l)
 
 Col = np.array(Col)
 BW = np.array(BW)
@@ -71,7 +68,7 @@ BW = np.array(BW)
 train_Col, _, train_BW, _ = train_test_split(Col, BW, test_size=0.3, random_state=42)
 print()
 
-epochs = 20
+epochs = 50
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
 print()
 
@@ -84,7 +81,7 @@ print("Saved model to disk")
 print()
 
 
-epochs = 20
+epochs = 50
 # load json and create model
 json_file = open('model_2D_'+str(epochs)+'.json', 'r')
 loaded_model_json = json_file.read()
@@ -95,6 +92,7 @@ loaded_model.load_weights('model_2D_'+str(epochs)+'.h5')
 print("Loaded model from disk")
 print()
 
+
 AB = []
 i = 0
 for img in BW:
@@ -103,7 +101,6 @@ for img in BW:
     img = np.reshape(img, (1, dim, dim, 1))
     cartoon_ab = loaded_model.predict(img)
     cartoon_ab = np.reshape(cartoon_ab, (dim, dim, 2))
-    cartoon_ab = 200 * cartoon_ab - 100
     AB.append(cartoon_ab)
 
 
@@ -129,7 +126,8 @@ i = 0
 for filename in listdir(cartoon_dir):
     i += 1
     print(i)
-    results[:, :, 0] = L[img]
-    results[:, :, 1:3] = AB[img]
+    results[:, :, 0] = L[img]    # values should be in (0,100)
+    results[:, :, 1:3] = AB[img] # values should be in (-100,100)
+    results = color.lab2rgb(results)
     io.imsave(results_dir + filename, results)
     img += 1

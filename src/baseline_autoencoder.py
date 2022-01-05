@@ -14,7 +14,7 @@ from os import listdir
 import numpy as np
 
 dim = 256
-
+'''
 # encoder
 inputs = Input(shape=(dim, dim, 3,))
 encoder_output = Conv2D(64, (3, 3), activation='relu', padding='same', strides=2)(inputs)
@@ -40,7 +40,7 @@ decoder_output = UpSampling2D((2, 2))(decoder_output)
 model = Model(inputs=inputs, outputs=decoder_output)
 model.compile(loss='mse', optimizer='adam', metrics=['acc'])
 print(model.summary())
-
+'''
 
 cartoon_dir = '../img/original/test_cartoon/'
 
@@ -67,13 +67,13 @@ for filename in listdir(cartoon_dir):
 Col = np.array(Col)
 BW = np.array(BW)
 
-
+'''
 train_Col, _, train_BW, _ = train_test_split(Col, BW, test_size=0.3, random_state=42)
 print()
 print(len(train_Col))
 print()
 
-epochs = 20
+epochs = 50
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
 
 model_json = model.to_json()
@@ -83,8 +83,8 @@ with open('model_cartoon_'+str(epochs)+'.json', "w") as json_file:
 model.save_weights('model_cartoon_'+str(epochs)+'.h5')
 print("Saved model to disk")
 
-
-epochs = 20
+'''
+epochs = 50
 # load json and create model
 json_file = open('model_cartoon_'+str(epochs)+'.json', 'r')
 loaded_model_json = json_file.read()

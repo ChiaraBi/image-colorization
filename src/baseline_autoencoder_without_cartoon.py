@@ -73,7 +73,7 @@ print()
 print(len(train_Col))
 print()
 
-epochs = 20
+epochs = 50
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
 
 model_json = model.to_json()
@@ -82,9 +82,9 @@ with open('model_without_cartoon_'+str(epochs)+'.json', "w") as json_file:
 # serialize weights to HDF5
 model.save_weights('model_without_cartoon_'+str(epochs)+'.h5')
 print("Saved model to disk")
-'''
 
-epochs = 20
+'''
+epochs = 50
 # load json and create model
 json_file = open('model_without_cartoon_'+str(epochs)+'.json', 'r')
 loaded_model_json = json_file.read()
@@ -103,6 +103,14 @@ for filename in listdir(original_dir):
     results = np.reshape(results, (1, dim, dim, 3))
     results = loaded_model.predict(results)
     results = np.reshape(results, (dim, dim, 3))
+    results = color.rgb2lab(results)
+
+    rgb = img_to_array(load_img(original_dir + filename, target_size=(dim, dim)))
+    rgb = 1.0 / 255 * rgb
+    lab = color.rgb2lab(rgb)
+
+    results[:, :, 0] = lab[:, :, 0]
+    results = color.lab2rgb(results)
     io.imsave(results_dir + filename, results)
     img += 1
     print(img)
