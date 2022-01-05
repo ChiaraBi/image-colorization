@@ -25,7 +25,6 @@ encoder_output = Conv2D(256, (3, 3), activation='relu', padding='same', strides=
 encoder_output = Conv2D(512, (3, 3), activation='relu', padding='same')(encoder_output)
 encoder_output = Conv2D(512, (3, 3), activation='relu', padding='same')(encoder_output)
 encoder_output = Conv2D(256, (3, 3), activation='relu', padding='same')(encoder_output)
-
 # decoder
 decoder_output = Conv2D(128, (3, 3), activation='relu', padding='same')(encoder_output)
 decoder_output = UpSampling2D((2, 2))(decoder_output)
@@ -35,7 +34,6 @@ decoder_output = Conv2D(32, (3, 3), activation='relu', padding='same')(decoder_o
 decoder_output = Conv2D(16, (3, 3), activation='relu', padding='same')(decoder_output)
 decoder_output = Conv2D(3, (3, 3), activation='tanh', padding='same')(decoder_output)
 decoder_output = UpSampling2D((2, 2))(decoder_output)
-
 # complete model
 model = Model(inputs=inputs, outputs=decoder_output)
 model.compile(loss='mse', optimizer='adam', metrics=['acc'])
@@ -72,17 +70,14 @@ train_Col, _, train_BW, _ = train_test_split(Col, BW, test_size=0.3, random_stat
 print()
 print(len(train_Col))
 print()
-
 epochs = 50
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
-
 model_json = model.to_json()
 with open('model_cartoon_'+str(epochs)+'.json', "w") as json_file:
     json_file.write(model_json)
 # serialize weights to HDF5
 model.save_weights('model_cartoon_'+str(epochs)+'.h5')
 print("Saved model to disk")
-
 '''
 epochs = 50
 # load json and create model
