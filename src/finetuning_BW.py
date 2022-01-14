@@ -85,29 +85,11 @@ print(alexnet.classifier[-1])
 
 optimizer = optim.Adam(alexnet.parameters(), lr=1e-4)
 
-N_EPOCHS = 2
-train_losses, train_acc, valid_losses, valid_acc = model_training(N_EPOCHS, alexnet, train_iterator,
-                                                                  valid_iterator, optimizer, criterion,
-                                                                  device, 'alexnet_feat_extract_birdsflowers_BW.pt')
-
-model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract_birdsflowers_BW.pt')
+model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract_birdsflowers_orig.pt')
 
 test_loss_BW, test_acc_BW = evaluate(alexnet, test_iterator, criterion, device)
 
 # Save results to files
-with open('../resources/classification/finetuning_BW/Test_BW.txt', 'w') as f:
+with open('../resources/classification/finetuning_orig/Test_BW.txt', 'w') as f:
     f.write("Test loss:" + str(test_loss_BW) + '\n')
     f.write("Test acc:" + str(test_acc_BW) + '\n')
-
-with open('../resources/classification/finetuning_BW/Train_BW.txt', 'w') as f:
-    f.write("Train loss:\n")
-    f.writelines('\n'.join([str(i) for i in train_losses]))
-    f.write("\nTrain acc:\n")
-    f.writelines('\n'.join([str(i) for i in train_acc]))
-
-with open('../resources/classification/finetuning_BW/Valid_BW.txt', 'w') as f:
-    f.write("Valid loss:\n")
-    f.writelines('\n'.join([str(i) for i in valid_losses]))
-    f.write("\nValid acc:\n")
-    f.writelines('\n'.join([str(i) for i in valid_acc]))
-

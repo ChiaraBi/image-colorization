@@ -30,17 +30,12 @@ def get_labels(labels, num):
 lab = ["cassette player", "chain saw", "church", "gas pump", "golf ball", "French horn", "parachute",
           "Rhodesian ridgeback", "Samoyed", "English springer", "tench", "garbage truck"]
 labels = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0, 569]
-labels_LOO = [482, 491, 497, 571, 574, 566, 701, 159, 258, 217, 0]
 
-LOO = '_LOO'  # '_LOO' / ''
-if LOO == '_LOO':
-    train_labels = get_labels(labels_LOO, 150)
-else:
-    train_labels = get_labels(labels, 150)
+train_labels = get_labels(labels, 150)
 test_labels = get_labels(labels, 50)
 
 # Load scaled data
-data_train_scaled = np.load('../resources/data_train_scaled_BW'+LOO+'.npy')
+data_train_scaled = np.load('../resources/data_train_scaled_BW.npy')
 data_test_scaled = np.load('../resources/data_test_scaled_BW.npy')
 
 # AlexNet requires images to be with shape: 3x256x256
@@ -84,29 +79,11 @@ criterion = criterion.to(device)
 optimizer = optim.Adam(alexnet.parameters(), lr=1e-4)
 alexnet = alexnet.to(device)
 
-# Train the last FC layer:
-N_EPOCHS = 3
-train_losses, train_acc, valid_losses, valid_acc = model_training(N_EPOCHS, alexnet, train_iterator,
-                                                                  valid_iterator, optimizer, criterion,
-                                                                  device, 'alexnet_feat_extract_BW.pt')
-
-model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract_BW.pt')
+model_testing(alexnet, test_iterator, criterion, device, 'alexnet_feat_extract_orig.pt')
 
 test_loss_BW, test_acc_BW = evaluate(alexnet, test_iterator, criterion, device)
 
 # Save results to files
-with open('../resources/classification/feature_extraction_BW/Test_BW'+LOO+'.txt', 'w') as f:
+with open('../resources/classification/feature_extraction_orig/Test_BW.txt', 'w') as f:
     f.write("Test loss:" + str(test_loss_BW) + '\n')
     f.write("Test acc:" + str(test_acc_BW) + '\n')
-
-with open('../resources/classification/feature_extraction_BW/Train_BW'+LOO+'.txt', 'w') as f:
-    f.write("Train loss:\n")
-    f.writelines('\n'.join([str(i) for i in train_losses]))
-    f.write("\nTrain acc:\n")
-    f.writelines('\n'.join([str(i) for i in train_acc]))
-
-with open('../resources/classification/feature_extraction_BW/Valid_BW'+LOO+'.txt', 'w') as f:
-    f.write("Valid loss:\n")
-    f.writelines('\n'.join([str(i) for i in valid_losses]))
-    f.write("\nValid acc:\n")
-    f.writelines('\n'.join([str(i) for i in valid_acc]))
