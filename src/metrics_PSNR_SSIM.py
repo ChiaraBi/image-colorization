@@ -4,15 +4,25 @@ import pickle
 import os
 from os import listdir
 from os.path import isfile, join
+
+# ENV 3.6
 import tensorflow as tf
 
-model = 'siggraph'
+# ENV 3.8
+#from utils_alexnet import *
+#import torch
+
+
+model = 'baseline_cartoon'
 
 '''
 if model == 'original':
     path = '../img/original/test/'
+elif model == 'baseline_cartoon' or model == 'baseline_without_cartoon':
+    path = '../img/colorized/baseline/'+model+'/epochs_50/'
 else:
     path = '../img/colorized/'+model+'/test/'
+
 
 onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
 
