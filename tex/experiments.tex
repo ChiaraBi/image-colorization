@@ -4,29 +4,7 @@ depending on the project, but you might compare with prior work, perform an abla
 determine the impact of various components of your system, experiment with different hyperparameters
 or architectural choices. You should include graphs, tables, or other figures to illustrate your experimental results.
 
-- Ricolorare immagini
-- Metriche
-- Filtri
-- Baseline con cartoonization
-- Turing Test
 
-- Classification con
-1) AlexNet pretrained: l'accuracy su B\&W è minore rispetto alle immagini originali e rispetto alla maggiorparte
-dei nostri modelli. l'accuracy delle immagini ricolorate dai nostri modelli è comunque molto più bassa rispetto
-all'accuracy delle immagini originali. quindi abbiamo provato a fare feature extraction sulle nostre classi
-selezionate da ImageNet per avere un risultato più reliable per quanto riguarda l'accuratezza dei nostri modelli
-
-2) feature extraction -> accuracy di alexnet sulle classi selezionate di ImageNet: confronto tra
-black and white e colorized. AlexNet performa peggio sulle B\&W, ma non tanto peggio, perchè il colore non è
-rilevante per le immagini di ImageNet che abbiamo scelto => abbiamo provato finetuning con un altro dataset
-contenente fiori e uccelli
-
-3) finetuning -> accuracy di alexnet sulle classi del nuovo dataset: confronto tra black and white e colorized.
-AlexNet performa tanto peggio sulle B\&W perchè questa volta il colore è molto più rilevante. Tuttavia, l'accuracy
-generale è più bassa rispetto a feature extraction perchè:
-1) il nuovo dataset è molto più piccolo di ImageNet
-2) il numero di epoch (2) è troppo piccolo rispetto alla grande differenza che c'è tra i due dataset
-3) i nostri modelli non colorano molto bene queste immagini perchè sono pretrained su ImageNet
 
 
 
