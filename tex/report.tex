@@ -45,9 +45,9 @@
 \setcounter{page}{1}
 
 \begin{document}
-\title{Image Colorization}
+\title{Automatic image colorization: a comparative overview}
 \author{Bigarella Chiara\\
-{\tt\small chiara.bigarella.1@studenti.unipd.it}
+{\tt\small Student nr. 2004248}
 % For a paper whose authors are all at the same institution,
 % omit the following lines up until the closing ``}''.
 % Additional authors and addresses can be added with ``\and'',
@@ -55,7 +55,7 @@
 % To save space, use either the email address or home page, not both
 \and
 Poletti Silvia\\
-{\tt\small silvia.poletti@studenti.unipd.it}
+{\tt\small Student nr. 1239133}
 }
 
 \maketitle
@@ -76,14 +76,18 @@ Poletti Silvia\\
 \input{related-work}
 \input{dataset}
 
-\input{methods}
+\section{Methods}
+In order to carry out a comparative overview about automatic image colorization, we built, trained and tested a simple autoencoder based on cartoonization, to be considered as baseline. Then, we tested some state-of-the-art pre-trained models taken from the literature: Dahl, Zhang and its upgraded version Siggraph, Chromagan and InstColorization.
+
 \input{baseline}
 \input{dahl}
 \input{zhang}
 \input{chromagan}
 \input{su}
 
-\input{experiments}
+\section{Experiments}
+To compare the results of each model, we computed several metrics: classification with AlexNet, LPIPS, PSNR and SSIM (all quantitative metrics) and a Turing test on few images (qualitative metric). Finally, we applied image filtering to evaluate possible improvements in the performances.
+
 \input{classification}
 \input{metrics}
 \input{turing}
