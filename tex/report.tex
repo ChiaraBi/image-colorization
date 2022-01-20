@@ -6,7 +6,30 @@
 \usepackage{graphicx}
 \graphicspath{./img}
 \usepackage{amsmath}
-\usepackage{amssymb}
+\usepackage{amssymb,bbm,xcolor}
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{mathtools,eucal}
+\usepackage{graphicx}
+
+\usepackage{bbold}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{booktabs, multicol, xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage{changepage}
+\cvprfinalcopy % *** Uncomment this line for the final submission
+\setcounter{page}{1}
+\renewcommand{\figurename}{Figure}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+\usepackage[T1]{fontenc}
+\usepackage{flushend}
 
 % Include other packages here, before hyperref.
 
@@ -52,9 +75,9 @@ Poletti Silvia\\
 \input{intro}
 \input{related-work}
 \input{dataset}
-\input{method}
+\input{methods}
 \input{experiments}
-\input{conclusions}
+\input{conclusion}
 
 {\small
 \bibliographystyle{ieee_fullname}
