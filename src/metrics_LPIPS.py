@@ -53,14 +53,15 @@ loss_fn_alex = lpips.LPIPS(net='alex')  # best forward scores
 d_alex = loss_fn_alex(originals, colorized)   # type: torch.FloatTensor
 # d_vgg = loss_fn_vgg(originals, colorized)
 
-torch.save(d_alex, '../resources/metrics_alex_'+model+'.pt')
-
+# torch.save(d_alex, '../resources/metrics_alex_'+model+'.pt')
 # torch.save(d_vgg, '../resources/metrics_vgg_'+model)
 
-m = torch.load('../resources/metrics_alex_'+model+'.pt')
+# m = torch.load('../resources/metrics_alex_'+model+'.pt')
+m = d_alex
+
 metrics = dict(max=m.max().item(), idx_max=m.argmax().item(),
                min=m.min().item(), idx_min=m.argmin().item(),
                mean=m.mean().item(), std=m.std().item())
 print(metrics)
-with open('../resources/metrics_alex_'+model+'.txt', 'w') as f:
+with open('../resources/metrics_lpips_'+model+'.txt', 'w') as f:
     f.write(json.dumps(metrics))
