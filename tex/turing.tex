@@ -1,9 +1,19 @@
 \subsection{Turing Test}
-124 subjects, 3 B\&W + 4 colored.
+In addition to the aforementioned quantitative metrics, we decided to perform a short Turing test, to use also
+a qualitative metric in the models comparison. To do so, we created a short survey on Google Forms. The survey is
+made of two parts: in the first part we show the participants three different black and white images, each one of
+them followed by the corresponding colorized images; while for the second part we chose 4 different images, which
+are originally colored, and we displayed the corresponding colorized images, without showing the original image.
+For all the automatically colorized images, we asked the participant to say how realist the colorization was in a
+scale that goes from 1 (not realistic at all) to 5 (very realistic). Note that for the Turing Test we employed only images coming from the four best
+performing models, i.e. Eccv16, Siggraph17, ChromaGAN and InstColorization.
 
-i risultati sono diversi perchè le foto B\%W sono scattate con una diversa tecnologia rispetto alle foto a colori
+We collected answers from 124 different subjects and in Figure \ref{fig:turing} we can see the mean scores
+obtained by the differnt models. From the plots we can clearly see that the models performed differently on black and white images and on colored
+images. This can be explained by the fact that black and white pictures and colored pictures are taken using
+different technologies.
+However, the models that obtained the higest scores in both cases are Siggraph17 and ChromaGAN.
 
-Figure \ref{fig:turing}
 \begin{figure}[h]
 	\centering
 	\captionsetup[subfigure]{labelformat=empty}
