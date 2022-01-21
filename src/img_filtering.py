@@ -33,7 +33,7 @@ def change_luminosity_and_save(img, luminosity_values, output_path):
         cv2.imwrite(save_path, img_luminosity)
 
 
-input_path = '../img/original/filtering'
+input_path = '../img/filtered/original'
 output_path = '../img/filtered/'
 img_paths = [f for f in listdir(input_path) if isfile(join(input_path, f))]
 

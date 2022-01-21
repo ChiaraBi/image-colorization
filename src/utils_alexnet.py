@@ -7,6 +7,10 @@ import torch.nn.functional as F
 from IPython import embed
 import time
 
+'''
+Useful functions for dealing with image loading and pre-processing.
+Useful functions for training, testing and evaluating AlexNet.
+'''
 
 def load_img(img_path):
     out_np = np.asarray(Image.open(img_path))
@@ -163,7 +167,7 @@ def model_training(n_epochs, model, train_iterator, valid_iterator, optimizer, c
         if valid_loss < best_valid_loss:
             best_valid_loss = valid_loss
             # Save model
-            torch.save(model.state_dict(), model_name)
+            torch.save(model.state_dict(), '../models'+model_name)
         end_time = time.time()
 
         print(f"\nEpoch: {epoch + 1}/{n_epochs} -- Epoch Time: {end_time - start_time:.2f} s")

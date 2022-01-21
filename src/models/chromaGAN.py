@@ -15,8 +15,7 @@ from os.path import isfile, join
 # DIRECTORY INFORMATION
 DATA_DIR = os.path.join('../../img/original/test')
 OUT_DIR = os.path.join('../../img/colorized/chromagan/test')
-# DATA_DIR = os.path.join('../../img/filtered/manual_contrast')
-# OUT_DIR = os.path.join('../../img/colorized/chromagan/filtered/manual_contrast')
+
 MODEL_DIR = os.path.join('../../models')
 BATCH_SIZE = 1
 
