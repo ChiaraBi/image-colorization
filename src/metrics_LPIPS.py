@@ -7,9 +7,15 @@ from os.path import isfile, join
 
 from utils_alexnet import *
 
-model = 'baseline_cartoon'
-
 '''
+LPIPS metric using AlexNet.
+'''
+
+# DATA NORMALIZATION IN RANGE [-1,1] AND RESHAPING TO 3x256x256
+
+model = 'chromagan'  # original, chromagan, dahl, siggraph, su, zhang,
+                     # baseline_cartoon, baseline_without_cartoon
+
 if model == 'original':
     path = '../img/original/test/'
 elif model == 'baseline_cartoon' or model == 'baseline_without_cartoon':
@@ -36,11 +42,12 @@ for i in range(0, data_metrics.shape[0]):
     data_metrics_norm[i, :, :, 2] = 2*(data_metrics[i, :, :, 2] - data_metrics[i, :, :, :].min()) / (data_metrics[i, :, :, :].max() - data_metrics[i, :, :, :].min()) - 1
 # NxHxWx3 -> Nx3xHxW
 data_metrics_norm = data_metrics_norm.transpose((0, 3, 1, 2))
-np.save('../resources/data_metrics_'+model, data_metrics_norm)
-'''
+np.save('../resources/LPIPS/data_metrics_'+model, data_metrics_norm)
 
-originals = np.load('../resources/data_metrics_original.npy')
-colorized = np.load('../resources/data_metrics_'+model+'.npy')
+
+# DATA LOADING
+originals = np.load('../resources/LPIPS/data_metrics_original.npy')
+colorized = np.load('../resources/LPIPS/data_metrics_'+model+'.npy')
 
 # Transform Numpy into Pytorch tensor
 originals = torch.from_numpy(originals).float()
@@ -48,20 +55,17 @@ colorized = torch.from_numpy(colorized).float()
 
 loss_fn_alex = lpips.LPIPS(net='alex')  # best forward scores
 # loss_fn_vgg = lpips.LPIPS(net='vgg')  # closer to "traditional" perceptual loss, when used for optimization
+                                        # we were unable to run it.
 
-# image should be RGB, IMPORTANT: normalized to [-1,1]
+
 d_alex = loss_fn_alex(originals, colorized)   # type: torch.FloatTensor
 # d_vgg = loss_fn_vgg(originals, colorized)
 
-# torch.save(d_alex, '../resources/metrics_alex_'+model+'.pt')
-# torch.save(d_vgg, '../resources/metrics_vgg_'+model)
+metrics = dict(max=d_alex.max().item(), idx_max=d_alex.argmax().item(),
+               min=d_alex.min().item(), idx_min=d_alex.argmin().item(),
+               mean=d_alex.mean().item(), std=d_alex.std().item())
 
-# m = torch.load('../resources/metrics_alex_'+model+'.pt')
-m = d_alex
-
-metrics = dict(max=m.max().item(), idx_max=m.argmax().item(),
-               min=m.min().item(), idx_min=m.argmin().item(),
-               mean=m.mean().item(), std=m.std().item())
 print(metrics)
-with open('../resources/metrics_lpips_'+model+'.txt', 'w') as f:
+
+with open('../resources/LPIPS/metrics_lpips_'+model+'.txt', 'w') as f:
     f.write(json.dumps(metrics))

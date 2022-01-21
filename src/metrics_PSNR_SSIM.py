@@ -5,24 +5,25 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-# ENV 3.6
-import tensorflow as tf
+import tensorflow as tf       # virtualenv 3.6
 
-# ENV 3.8
-#from utils_alexnet import *
-#import torch
-
-
-model = 'baseline_cartoon'
+from utils_alexnet import *   # virtualenv 3.8
+import torch                  # virtualenv 3.8
 
 '''
+PSNR amn SSIM metrics from Tensorflow.
+'''
+
+# DATA NORMALIZATION IN RANGE [0,255] AND RESHAPING TO 256x256x3
+
+model = 'chromagan'  # original, chromagan, dahl, siggraph, su, zhang
+
 if model == 'original':
     path = '../img/original/test/'
 elif model == 'baseline_cartoon' or model == 'baseline_without_cartoon':
     path = '../img/colorized/baseline/'+model+'/epochs_50/'
 else:
     path = '../img/colorized/'+model+'/test/'
-
 
 onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
 
@@ -35,15 +36,16 @@ for files in onlyfiles:
     print(i)
     i += 1
 
-
-np.save('../resources/data_metrics_'+model+'_0_255', data_metrics)
-'''
+np.save('../resources/PSNRandSSIM/data_metrics_'+model+'_0_255', data_metrics)
 
 
-originals = np.load('../resources/data_metrics_original_0_255.npy')
-colorized = np.load('../resources/data_metrics_'+model+'_0_255.npy')
+# DATA LOADING
+originals = np.load('../resources/PSNRandSSIM/data_metrics_original_0_255.npy')
+colorized = np.load('../resources/PSNRandSSIM/data_metrics_'+model+'_0_255.npy')
 
-batch = 22    # range in [0, 22]
+
+# since the computation is heavy, we run the code on batches of size 100
+batch = 0    # to be changed in the range [0, 22]
 ssim = []
 psnr = []
 
@@ -69,27 +71,27 @@ else:
         print(img)
 
 
+# Update the old batch result with the new one
 if batch != 0:
-    with open('../resources/metrics_batches/metrics_ssim_' + model + '_batch_' + str(batch-1) + '.txt', 'rb') as fp:
+    with open('../resources/PSNRandSSIM/metrics_batches/metrics_ssim_' + model + '_batch_' + str(batch-1) + '.txt', 'rb') as fp:
         btc = pickle.load(fp)
     ssim = btc + ssim
 
-    with open('../resources/metrics_batches/metrics_psnr_' + model + '_batch_' + str(batch-1) + '.txt', 'rb') as fp:
+    with open('../resources/PSNRandSSIM/metrics_batches/metrics_psnr_' + model + '_batch_' + str(batch-1) + '.txt', 'rb') as fp:
         btc = pickle.load(fp)
     psnr = btc + psnr
 
-    os.remove('../resources/metrics_batches/metrics_ssim_' + model + '_batch_' + str(batch - 1) + '.txt')
-    os.remove('../resources/metrics_batches/metrics_psnr_' + model + '_batch_' + str(batch - 1) + '.txt')
+    os.remove('../resources/PSNRandSSIM/metrics_batches/metrics_ssim_' + model + '_batch_' + str(batch - 1) + '.txt')
+    os.remove('../resources/PSNRandSSIM/metrics_batches/metrics_psnr_' + model + '_batch_' + str(batch - 1) + '.txt')
 
-with open('../resources/metrics_batches/metrics_ssim_' + model + '_batch_' + str(batch) + '.txt', 'wb') as fp:
+with open('../resources/PSNRandSSIM/metrics_batches/metrics_ssim_' + model + '_batch_' + str(batch) + '.txt', 'wb') as fp:
     pickle.dump(ssim, fp)
-with open('../resources/metrics_batches/metrics_psnr_' + model + '_batch_' + str(batch) + '.txt', 'wb') as fp:
+with open('../resources/PSNRandSSIM/metrics_batches/metrics_psnr_' + model + '_batch_' + str(batch) + '.txt', 'wb') as fp:
     pickle.dump(psnr, fp)
 
 
-
 # Compute statistics:
-with open('../resources/metrics_batches/metrics_ssim_' + model + '_batch_' + str(22) + '.txt', 'rb') as fp:
+with open('../resources/PSNRandSSIM/metrics_batches/metrics_ssim_' + model + '_batch_' + str(22) + '.txt', 'rb') as fp:
     ssim = pickle.load(fp)
 mean_ssim = sum(ssim)/len(ssim)
 std_ssim = np.sqrt(sum([((x - mean_ssim) ** 2) for x in ssim]) / len(ssim))
@@ -98,7 +100,7 @@ metrics_ssim = dict(max=max(ssim), idx_max=ssim.index(max(ssim)),
                     mean=mean_ssim, std=std_ssim)
 print(metrics_ssim)
 
-with open('../resources/metrics_batches/metrics_psnr_' + model + '_batch_' + str(22) + '.txt', 'rb') as fp:
+with open('../resources/PSNRandSSIM/metrics_batches/metrics_psnr_' + model + '_batch_' + str(22) + '.txt', 'rb') as fp:
     psnr = pickle.load(fp)
 mean_psnr = sum(psnr)/len(psnr)
 std_psnr = np.sqrt(sum([((x - mean_psnr) ** 2) for x in psnr]) / len(psnr))
@@ -107,8 +109,8 @@ metrics_psnr = dict(max=max(psnr), idx_max=psnr.index(max(psnr)),
                     mean=mean_psnr, std=std_psnr)
 print(metrics_psnr)
 
-with open('../resources/metrics_ssim_'+model+'.txt', 'w') as f:
+with open('../resources/PSNRandSSIM/metrics_ssim_'+model+'.txt', 'w') as f:
     f.write(json.dumps(str(metrics_ssim)))
 
-with open('../resources/metrics_psnr_'+model+'.txt', 'w') as f:
+with open('../resources/PSNRandSSIM/metrics_psnr_'+model+'.txt', 'w') as f:
     f.write(json.dumps(str(metrics_psnr)))

@@ -23,6 +23,8 @@ model = 'BW'  # orig, BW, chromagan, dahl, siggraph, su, zhang,
 # Each subdirectory contains 50 images.
 if model == 'orig' or model == 'BW':
     test_path = '../img/original/classification_test/'
+elif model == 'baseline_cartoon' or model == 'baseline_without_cartoon':
+    test_path = '../img/colorized/baseline/'+model+'/classification_test/'
 else:
     test_path = '../img/colorized/'+model+'/classification_test/'
 

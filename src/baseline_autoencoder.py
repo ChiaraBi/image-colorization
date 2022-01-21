@@ -76,20 +76,20 @@ train_Col, _, train_BW, _ = train_test_split(Col, BW, test_size=0.3, random_stat
 epochs = 50
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
 model_json = model.to_json()
-with open('model_cartoon_'+str(epochs)+'.json', "w") as json_file:
+with open('../models/model_cartoon_'+str(epochs)+'.json', "w") as json_file:
     json_file.write(model_json)
 # serialize weights to HDF5
-model.save_weights('model_cartoon_'+str(epochs)+'.h5')
+model.save_weights('../models/model_cartoon_'+str(epochs)+'.h5')
 print("Saved model to disk")
 
 
 # For testing the saved pre-trained models: load json and create model
-json_file = open('model_cartoon_'+str(epochs)+'.json', 'r')
+json_file = open('../models/model_cartoon_'+str(epochs)+'.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 loaded_model = model_from_json(loaded_model_json)
 # load weights into new model
-loaded_model.load_weights('model_cartoon_'+str(epochs)+'.h5')
+loaded_model.load_weights('../models/model_cartoon_'+str(epochs)+'.h5')
 print("Loaded model from disk")
 
 
