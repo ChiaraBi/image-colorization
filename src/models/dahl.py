@@ -8,7 +8,6 @@ from os.path import isfile, join
 
 tf.disable_v2_behavior()
 
-
 def load_image(path):
     img = imread(path)
     # crop image from center
@@ -30,13 +29,17 @@ graph_def.ParseFromString(fileContent)
 grayscale = tf.placeholder(tf.float32, shape=(1, 224, 224, 1))
 tf.import_graph_def(graph_def, input_map={"grayscale": grayscale}, name='')
 
+
+# The following paths refer to the ImageNet directory containing 12 sub-directories,
+# one for each of the 12 classes.
 imageNet_input_dir = '../../img/original/ImageNet/'
 imageNet_output_dir = '../../img/colorized/dahl/ImageNet/'
 
-
-# IMAGENET
-# directory list:
+# if we have a directory containing sub-directories:
 onlydirectories = [f for f in listdir(imageNet_input_dir) if not isfile(join(imageNet_input_dir, f))]
+
+# if we have a directory directly containing the images:
+# onlyfiles = [f for f in listdir(input_dir) if (isfile(join(input_dir, f)) and f != '.DS_Store')]
 
 count = 0
 for d in onlydirectories:
