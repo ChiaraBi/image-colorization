@@ -13,8 +13,14 @@ it requires to map a 2D greyscale image to a 3D colored one, and there are multi
 be effectively used to colorize the same object.
 
 In our project we want to explore some of the most recent models for automatic image colorization, such as
-ChromaGAN \cite{chromagan}, eccg16 , siggraph17 , instance-aware image colorization \cite{su}. We also used an
-older model developed by Dahl \cite{dahl} and we implemented a simple autoencoder as a baseline.
+ECCV16 \cite{zhang}, SIGGRAPH17 \cite{siggraph}, ChromaGAN \cite{chromagan}, InstColorization \cite{su}.
+We also use an older model developed by Dahl \cite{dahl} and we implement a simple model based on an autoencoder,
+as a baseline.
+To compare all these models, we perform the classification task on the colorized images and measure the
+classification accuracy. Furthermore, we compute some advanced metrics, such as Learned Perceptual Image Patch
+Similarity (LPIPS), Peak Signal-to-Noise Ratio (PSNR) and Structural similarity (SSIM).
+
+Overall, the best performing models are the newest ones, i.e. ChromaGAN \cite{chromagan} and InstColorization \cite{su}.
 
 
 
@@ -26,8 +32,4 @@ older model developed by Dahl \cite{dahl} and we implemented a simple autoencode
 % to ignore diverse colors present in a training set and opt to learn only a few dominant colors. Using the most
 % dominant color can be effective in minimizing the overall loss but yields unsatisfactory re- sults. One can see
 % that the outputs of [34] are dominated by the most prevalent color (red).
-
-
-
-Introduction (10\%): describe the problem you are working on, why it's important, and an overview of your results.
 
