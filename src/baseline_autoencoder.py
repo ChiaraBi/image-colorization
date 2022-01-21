@@ -126,7 +126,7 @@ for filename in listdir(cartoon_dir):
 
 
 # directory for saving the results
-results_dir = '../img/colorized/baseline/baseline_cartoon/epochs_'+str(epochs)+'/'
+results_dir = '../img/colorized/baseline_cartoon/test/'
 
 
 # COMBINE L WITH THE PREDICTED AB CHANNELS

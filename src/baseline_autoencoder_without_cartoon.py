@@ -98,7 +98,7 @@ loaded_model.load_weights('../models/model_without_cartoon_'+str(epochs)+'.h5')
 print("Loaded model from disk")
 
 # directory for saving the results
-results_dir = '../img/colorized/baseline/baseline_without_cartoon/epochs_'+str(epochs)+'/'
+results_dir = '../img/colorized/baseline_without_cartoon/test/'
 
 
 # PREDICTIONS

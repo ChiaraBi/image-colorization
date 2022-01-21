@@ -20,8 +20,6 @@ model = 'chromagan'  # original, chromagan, dahl, siggraph, su, zhang
 
 if model == 'original':
     path = '../img/original/test/'
-elif model == 'baseline_cartoon' or model == 'baseline_without_cartoon':
-    path = '../img/colorized/baseline/'+model+'/epochs_50/'
 else:
     path = '../img/colorized/'+model+'/test/'
 
