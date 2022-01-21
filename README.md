@@ -1,11 +1,10 @@
 # Image colorization
 Project for the university course of Vision and Cognitive Services.
 
-We used a small subset of ImageNet, Pascal, Places and other datasets:
+We used the following datasets:
 - Imagenette: https://github.com/fastai/imagenette
-- https://github.com/EliSchwartz/imagenet-sample-images
 - Pascal: https://deepai.org/dataset/pascal-voc
-- Landscapes: https://www.kaggle.com/arnaud58/landscape-pictures?select=00000000.jpg
+- Places: https://paperswithcode.com/dataset/places205
 - Birds: https://www.kaggle.com/gpiosenka/100-bird-species
 - Flowers: https://www.robots.ox.ac.uk/~vgg/data/flowers/102/
 
@@ -14,7 +13,7 @@ Here you can find the pretrained models used in this project:
 - Zhang eccv_16: https://github.com/richzhang/colorization/blob/master/colorizers/eccv16.py
 - Zhang siggraph17: https://github.com/richzhang/colorization/blob/master/colorizers/siggraph17.py
 - ChromaGAN: https://github.com/pvitoria/ChromaGAN - related paper [here](https://arxiv.org/pdf/1907.09837.pdf)
-- Su: https://github.com/ericsujw/InstColorization - related paper [here](https://arxiv.org/pdf/2005.10825.pdf)
+- InstColorization: https://github.com/ericsujw/InstColorization - related paper [here](https://arxiv.org/pdf/2005.10825.pdf)
 
 Other recent pretrained models:
 - https://github.com/LenKerr/Colorization-1 - inspired by Zhang
@@ -22,7 +21,7 @@ Other recent pretrained models:
 - https://github.com/MarkMoHR/Awesome-Image-Colorization - repository containing various codes/ideas (language-based image editing)
 
 ## Requirements
-- python 3.6
+- python 3.6 or 3.8
 - virtualenv wrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
 
 ## Dahl
@@ -35,7 +34,7 @@ Other recent pretrained models:
   - to colorize black and white images: `python3 dahlBW.py`
   - to colorize ImageNet images: `python3 dahlImageNet.py`
     
-## Zhang
+## Eccv16
 - create a virtual environment: `mkvirtualenv --python=python3 zhang`
 - install the requirements: `pip install -r requirements_zhang.txt`
 - position yourself into the following folder: `cd src/models`
