@@ -1,6 +1,24 @@
 \subsection{Image filtering}
-possiamo prendere ad esempio ChromaGAN (uno dei migliori modelli): l'erba la fa verde perchè è più realistica (si potrebbe pensare che ha colori anche migliori dell'originale), cartoon fa schifo perchè il modello non ha fatto un training su tali immagini, altrimenti potremmo supporre che performerebbe meglio. Infatti non riconosce l'erba come tale e sembra la colori di blu, scambiandola per acqua.
-Figure \ref{fig:filter}
+Our last experiment consists in applying some filters to 18 images selected from our ImageNet subset, to see how
+these changes can affect the image colorization output.
+We appplied the following filters:
+\begin{itemize}
+	\item a blurring filter with three different intensities, corresponding to three different kernel sizes: 3, 7, 11;
+	\item a cartoonizing filter;
+	\item increasing and decreasing the image contrast;
+	\item increasing and decreasing the image luminance.
+\end{itemize}
+
+We noticed that, in general, a blurred image is harder to colorize, and the more blurred the image is, the worse
+the final colorization in all of the models.
+On the contrary, images with a higher contrast and images with a higher luminance get a better colorization
+in all the models, with just a few exceptions depending on the specific image.
+
+In Figure \ref{fig:filter} we report an example of the outcome of the ChromaGAN model on the filtered images. We
+can clearly see that the cartoonized image is the one with the less realistic colors: it looks like the model
+didn't recognize the grass. This is probably due to the fact that the models we used are not trained on
+cartoonized images. Another badly colored image, is the blurred one: here the dogs have some wired pink/orange
+spots on their fur.
 
 \begin{figure*}[t]
 	\centering
