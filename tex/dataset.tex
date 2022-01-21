@@ -4,21 +4,29 @@ We considered three types of images: 4023 originally colored images from five di
 Indeed, our data includes heterogeneous images, representing many different environments, situations and subjects.
 For what concerns the originally colored images, we considered various sources:
 \begin{itemize}
-	\item subset of ImageNet made of 12 classes (200 images each) taken from \cite{imagenette}, ten of which are easily classified classes (tench, English springer, cassette player, chain saw, church, French horn, garbage truck, gas pump, golf ball and parachute) while the other two are not so easy to classify (Samoyed and Rhodesian ridgeback);
-	\item subset of 100 randomly selected images from Pascal VOC \cite{pascal} representing realistic scenes in which the subjects could be animals, human beeings, plants, rooms, landscapes, various objects and vehicles;
-	\item subset of 200 randomly selected images form Places205 \cite{place} reguarding mountain, desert, sea, beach and island landscapes.
-	\item subset of 325 Bird Species \cite{bird} made of 8 classes (100 images each), which were selected to depict those birds having the most unusual colors (Cuban Tody, Fire Tailed Myzornis, Flamingo, Nicobar Pigeon and Pink Robin) and those that are well-known by the majority of people (Bald Eagle, Ostrich and Touchan);
-	\item subset of 102 Category Flowers \cite{flower} made of 6 classes (from 50 to 100 images each), which were selected to depict those flowers having the most unusual colors and shapes (Purple Coneflower, Grape Hyacinth, Hibiscus) and those that are well-known by the majority of people (Rose, Water Lily and Giant White Arum Lily).
+	\item a subset of ImageNet made of 12 classes (200 images each) taken from \cite{imagenette}, ten of which are easily classified classes (tench, English springer, cassette player, chain saw, church, French horn, garbage truck, gas pump, golf ball and parachute) while the other two are not so easy to classify (Samoyed and Rhodesian ridgeback);
+	\item a subset of 100 randomly selected images from Pascal VOC \cite{pascal} representing realistic scenes in which the subjects could be animals, human beeings, plants, rooms, landscapes, various objects and vehicles;
+	\item a subset of 200 randomly selected images form Places205 \cite{place} reguarding mountain, desert, sea, beach and island landscapes.
+	\item a subset of 325 Bird Species \cite{bird} made of 8 classes (100 images each), which were selected to depict those birds having the most unusual colors (Cuban Tody, Fire Tailed Myzornis, Flamingo, Nicobar Pigeon and Pink Robin) and those that are well-known by the majority of people (Bald Eagle, Ostrich and Touchan);
+	\item a subset of 102 Category Flowers \cite{flower} made of 6 classes (from 50 to 100 images each), which were selected to depict those flowers having the most unusual colors and shapes (Purple Coneflower, Grape Hyacinth, Hibiscus) and those that are well-known by the majority of people (Rose, Water Lily and Giant White Arum Lily).
 \end{itemize}
 
-The images have been treated by using OpenCV (ChromaGAN and InstColorization) or Pillow combined with Skimage (Baseline, Dahl, Zhang, Siggraph).
+The images have been preprocessed by using OpenCV (ChromaGAN and InstColorization) or Pillow combined with Skimage
+(Baseline, Dahl, Zhang, Siggraph).
 
-The images have been reshaped to various formats ($256\times256\times3$ for Baseline, Zhang, Siggraph and InstColorization and $224\times224\times3$ for Dahl and Chromagan) and Dahl also required center cropping and desaturation. Despite the preliminar reshape, Zhang, Siggraph and ChromaGAN models are built in a way that allows to obtain colorized images having the original shape.
+The images have been reshaped to various formats ($256\times256\times3$ for Baseline, Zhang, Siggraph and InstColorization and $224\times224\times3$ for Dahl and ChromaGAN) and Dahl also required center cropping and desaturation. Despite the preliminar reshape, Zhang, Siggraph and ChromaGAN models are built in a way that allows to obtain colorized images having the original shape.
 
-Given an RGB image (additive colour model in which red, green and blue primary colour channels are added together) we obtain the corrisponding image in the \textit{Lab} color space, in which colors are expressed through 3 new channels: $L$ for perceptual lightness ($L=0$ corresponds to white, $L=100$ corresponds to black), $a$ and $b$ for four primary colors ($a=\pm100$ correspond to red and green, $b=\pm100$ correspond to yellow and blue).
+Given an RGB image (additive colour model in which red, green and blue primary colour channels are added together)
+we obtain the corrisponding image in the \textit{Lab} color space, in which colors are expressed through 3 new
+channels: $L$ for perceptual lightness ($L=0$ corresponds to white, $L=100$ corresponds to black), $a$ and $b$ for
+four primary colors ($a=\pm100$ correspond to red and green, $b=\pm100$ correspond to yellow and blue).
 
-Our models get only the $L$ channel as input (greyscale images) with the goal of predicting the $a$ and $b$ channels. Then, the resulting images are projected again in the RGB color space.
+Our models get only the $L$ channel as input (greyscale images) with the goal of predicting the $a$ and $b$
+channels. Then, the resulting images are projected again in the RGB color space.
 
-Moreover, the classification with AlexNet required the normalization of the images' RGB channels in the range $[0,1]$ and a further standardization of the images according to the mean and standard deviation of the training set images. 
+Moreover, the classification with AlexNet required the normalization of the images' RGB channels in the
+range $[0,1]$ and a further standardization of the images according to the mean and standard deviation of the
+training set images.
 
-On the other hand, the LPIPS metric required the normalization of the images' RGB channels in the range $[-1,1]$ and the dataset reshaping from $N\times H\times W\times3$ to $N\times3\times H\times W$, where $N$ is the number of images.
+On the other hand, the LPIPS metric required the normalization of the images' RGB channels in the range $[-1,1]$ and
+the dataset reshaping from $N\times H\times W\times3$ to $N\times3\times H\times W$, where $N$ is the number of images.
