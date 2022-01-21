@@ -77,7 +77,7 @@ Poletti Silvia\\
 \input{dataset}
 
 \section{Methods}
-In order to carry out a comparative overview about automatic image colorization, we built, trained and tested a simple autoencoder based on cartoonization, to be considered as baseline. Then, we tested some state-of-the-art pre-trained models taken from the literature: Dahl, Zhang and its upgraded version Siggraph, ChromaGAN and InstColorization. The architectures of the proposed methods are reported in the Appendix.
+In order to carry out a comparative overview about automatic image colorization, we propose a simple autoencoder based on cartoonization as baseline. Then, we tested some state-of-the-art pre-trained models taken from the literature. The architectures of the proposed methods are reported in the Appendix.
 
 \input{baseline}
 \input{dahl}
@@ -113,11 +113,29 @@ This section contain the graphical representation of the proposed models' archit
 	\label{fig:dahl}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[t]
 	\centering
-	\includegraphics[width=15cm]{diagram zhang}
-	\caption{Zhang architecture.}
-	\label{fig:zh}
+	
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\begin{adjustwidth}{-3cm}{}
+			\includegraphics[width=15cm]{quantization}
+		\end{adjustwidth}
+		\caption{Quantization of the \textit{ab} output space.}
+		\label{fig:q}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\begin{adjustwidth}{-3cm}{}
+			\includegraphics[width=15cm]{diagram zhang}
+		\end{adjustwidth}
+		\caption{Zhang  architecture.}
+		\label{fig:zh}
+	\end{subfigure}
+	
+	\caption{{\small Zhang approach and architecture.}}
+	\label{fig:zhang}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -139,8 +157,8 @@ This section contain the graphical representation of the proposed models' archit
 	
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\begin{adjustwidth}{-3cm}{}
-		\includegraphics[width=15cm]{diagram su1}
+		\begin{adjustwidth}{-2cm}{}
+		\includegraphics[width=13cm]{diagram su1}
 		\end{adjustwidth}
 		\caption{Complete process overview.}
 		\label{fig:su1}
@@ -148,14 +166,14 @@ This section contain the graphical representation of the proposed models' archit
 	
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\begin{adjustwidth}{-3cm}{}
-			\includegraphics[width=15cm]{diagram su2}
+		\begin{adjustwidth}{-2cm}{}
+			\includegraphics[width=13cm]{diagram su2}
 		\end{adjustwidth}
 		\caption{Fusion module at the j-th layer.}
 		\label{fig:su2}
 	\end{subfigure}
 
-	\caption{{\small InstColorization architecture.}}
+	\caption{{\small InstColorization approach and architecture.}}
 \label{fig:su}
 \end{figure}
 
