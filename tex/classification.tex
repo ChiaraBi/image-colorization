@@ -5,7 +5,7 @@ First, we considered the AlexNet classifier pre-trained on ImageNet and tested o
 	\begin{center}
 		\begin{adjustwidth}{-1cm}{}
 			\begin{tabular}{c|ccccccccc}
-				&\textbf{Original} & \textbf{B\&W} & \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Zhang} & \textbf{Siggraph} & \textbf{Chromagan} & \textbf{InstColorization}  \\
+				&\textbf{Original} & \textbf{B\&W} & \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Zhang} & \textbf{Siggraph} & \textbf{ChromaGAN} & \textbf{InstColorization}  \\
 				\midrule
 				\textbf{Pre-trained} & 74.5\% & 43.1\% & 32.5\% & 34.0\% & 39.8\% & 42.7\% & 43.2\% & 46.8\% & 49.5\% \\
 				\midrule
@@ -89,7 +89,7 @@ First, we considered the AlexNet classifier pre-trained on ImageNet and tested o
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{chr - flamingo.jpg}
-		\caption{Chromagan}
+		\caption{ChromaGAN}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
@@ -104,7 +104,7 @@ Table \ref{tab:pre-trained} reports the AlexNet classification accuracy in this 
 
 The great gap in the accuracies computed on the original and the black and white versions of the images suggests that colors play an important role in image classification.
 
-The best colorizations according to this experiment are given by Chromagan and InstColorization, while the Baseline and Dahl are not even able to improve the accuracy with respect to the black and white images.\\
+The best colorizations according to this experiment are given by ChromaGAN and InstColorization, while the Baseline and Dahl are not even able to improve the accuracy with respect to the black and white images.\\
 
 Overall, the accuracy on the models' colorizations is much lower than the one computed on the original images and the latter is relatively low. Therefore we applied feature extraction to better focus on our ImageNet subset: we used the pre-trained AlexNet as a fixed feature-extractor, and only updated the final layer (for 2 epochs) in order to consider just our 12 ImageNet classes. This resulted in more reliable accuracy values and all the models except the Baseline are able to outperform the black and white images.\\
 

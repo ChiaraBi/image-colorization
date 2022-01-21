@@ -11,9 +11,9 @@ For what concerns the originally colored images, we considered various sources:
 	\item subset of 102 Category Flowers \cite{flower} made of 6 classes (from 50 to 100 images each), which were selected to depict those flowers having the most unusual colors and shapes (Purple Coneflower, Grape Hyacinth, Hibiscus) and those that are well-known by the majority of people (Rose, Water Lily and Giant White Arum Lily).
 \end{itemize}
 
-The images have been treated by using OpenCV (Chromagan and InstColorization) or Pillow combined with Skimage (Baseline, Dahl, Zhang, Siggraph).
+The images have been treated by using OpenCV (ChromaGAN and InstColorization) or Pillow combined with Skimage (Baseline, Dahl, Zhang, Siggraph).
 
-The images have been reshaped to various formats ($256\times256\times3$ for Baseline, Zhang, Siggraph and InstColorization and $224\times224\times3$ for Dahl and Chromagan) and Dahl also required center cropping and desaturation. Despite the preliminar reshape, Zhang, Siggraph and Chromagan models are built in a way that allows to obtain colorized images having the original shape.
+The images have been reshaped to various formats ($256\times256\times3$ for Baseline, Zhang, Siggraph and InstColorization and $224\times224\times3$ for Dahl and ChromaGAN) and Dahl also required center cropping and desaturation. Despite the preliminar reshape, Zhang, Siggraph and Chromagan models are built in a way that allows to obtain colorized images having the original shape.
 
 Given an RGB image (additive colour model in which red, green and blue primary colour channels are added together) we obtain the corrisponding image in the \textit{Lab} color space, in which colors are expressed through 3 new channels: $L$ for perceptual lightness ($L=0$ corresponds to white, $L=100$ corresponds to black), $a$ and $b$ for four primary colors ($a=\pm100$ correspond to red and green, $b=\pm100$ correspond to yellow and blue).
 
