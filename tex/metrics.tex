@@ -1,3 +1,39 @@
 \subsection{LPIPS, PSNR and SSIM Metrics}
 
-\cite{psnr-ssim} and \cite{lpips}
+\begin{table*}[ht]
+	\begin{center}
+		\begin{tabular}{c|ccccccc}
+			& \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Eccv16} & \textbf{Siggraph17} & \textbf{ChromaGAN} & \textbf{InstColorization}  \\
+			\midrule
+			\textbf{LPIPS} & 0.28 & 0.28 & 0.36 & 0.23 & 0.20 & 0.21 & 0.23 \\
+			\midrule
+			\textbf{PSNR} & - & - & 16.87 & 20.88 & 22.19 & 21.66 & 21.41 \\
+			\midrule
+			\textbf{SSIM} & - & - & 0.56 & 0.86 & 0.87 & 0.87 & 0.88 \\
+		\end{tabular}
+	\end{center}
+	\caption{{\small  Summary of the metrics computed on different models.}}
+	\label{tab:metrics}
+\end{table*}
+
+To further compare the models, we computed the following metrics:
+\begin{itemize}
+	\item \textbf {Learned Perceptual Image Patch Similarity (LPIPS)} \cite{lpips}: evaluates the distance between image patches, therefore higher values for this metric mean the colorized images are more different from the corresponding original images, while lower values mean the colorized images are more similar to the corresponding original image.
+	\item \textbf {Peak Signal-to-Noise Ratio (PSNR)} \cite{psnr-ssim}: computes the ratio between the maximum possible power of a signal and the power of corrupting noise that affects the fidelity of its representation.
+	\item \textbf {Structural Similarity (SSIM)} \cite{psnr-ssim}: an image similarity metric based on the perceived change in structural information, which is the idea that the pixels have strong inter-dependencies that carry important information about the structure of the objects in the visual scene.
+\end{itemize}
+
+As we can see from table \ref{tab:metrics}, the models with the lowest (and therefore the best) values for the
+LPIPS metric are Siggraph17 (with 0.20) and ChromaGAN (with 0.21). These two models are the ones that performed better
+also with respect to the PSNR metric, with a score of 22.19 and 21.66 respectively. While, for the SSIM metric, the
+best performing model is InstColorization with a score of 0.88, followed by ChromaGAN and Siggraph17, both with a
+score of 0.87.
+
+Dahl's model is the one with the lowest scores for all the three metrics. Infact, this model produces less colorful
+images compared to the other models. However, the huge differences in the scores compared to the other models can
+be explained by the fact that it also produces images with a smaller size (224×224) compared to the size used to confront the
+colorized images with the original ones (256×256).
+
+Finally, we decided to not compute PSNR and SSIM for our baseline, since, on one hand, we don't expect it to have high
+performances on those metrics and, on the other hand, the computation of these two metrics is highly resource
+consuming.
