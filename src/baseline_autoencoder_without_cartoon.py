@@ -13,8 +13,13 @@ from skimage import io, color
 from os import listdir
 import numpy as np
 
-dim = 256
 '''
+Baseline without Cartoonization.
+'''
+
+# images dimension
+dim = 256
+
 # encoder
 inputs = Input(shape=(dim, dim, 3,))
 encoder_output = Conv2D(64, (3, 3), activation='relu', padding='same', strides=2)(inputs)
@@ -40,8 +45,9 @@ decoder_output = UpSampling2D((2, 2))(decoder_output)
 model = Model(inputs=inputs, outputs=decoder_output)
 model.compile(loss='mse', optimizer='adam', metrics=['acc'])
 print(model.summary())
-'''
 
+
+# directory of original images
 original_dir = '../img/original/test/'
 
 Col = []
@@ -67,11 +73,9 @@ for filename in listdir(original_dir):
 Col = np.array(Col)
 BW = np.array(BW)
 
-'''
+
+# Training
 train_Col, _, train_BW, _ = train_test_split(Col, BW, test_size=0.3, random_state=42)
-print()
-print(len(train_Col))
-print()
 
 epochs = 50
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
@@ -83,9 +87,8 @@ with open('model_without_cartoon_'+str(epochs)+'.json', "w") as json_file:
 model.save_weights('model_without_cartoon_'+str(epochs)+'.h5')
 print("Saved model to disk")
 
-'''
-epochs = 50
-# load json and create model
+
+# For testing the saved pre-trained models: load json and create model
 json_file = open('model_without_cartoon_'+str(epochs)+'.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
@@ -94,9 +97,11 @@ loaded_model = model_from_json(loaded_model_json)
 loaded_model.load_weights('model_without_cartoon_'+str(epochs)+'.h5')
 print("Loaded model from disk")
 
-
+# directory for saving the results
 results_dir = '../img/colorized/baseline/baseline_without_cartoon/epochs_'+str(epochs)+'/'
 
+
+# PREDICTIONS
 img = 0
 for filename in listdir(original_dir):
     results = BW[img]

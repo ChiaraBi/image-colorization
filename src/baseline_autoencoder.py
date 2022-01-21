@@ -13,8 +13,13 @@ from skimage import io, color
 from os import listdir
 import numpy as np
 
-dim = 256
 '''
+Baseline with Cartoonization.
+'''
+
+# images dimension
+dim = 256
+
 # encoder
 inputs = Input(shape=(dim, dim, 3,))
 encoder_output = Conv2D(64, (3, 3), activation='relu', padding='same', strides=2)(inputs)
@@ -38,8 +43,8 @@ decoder_output = UpSampling2D((2, 2))(decoder_output)
 model = Model(inputs=inputs, outputs=decoder_output)
 model.compile(loss='mse', optimizer='adam', metrics=['acc'])
 print(model.summary())
-'''
 
+# directory of the cartoonized original images
 cartoon_dir = '../img/original/test_cartoon/'
 
 Col = []
@@ -65,11 +70,9 @@ for filename in listdir(cartoon_dir):
 Col = np.array(Col)
 BW = np.array(BW)
 
-'''
+# Training
 train_Col, _, train_BW, _ = train_test_split(Col, BW, test_size=0.3, random_state=42)
-print()
-print(len(train_Col))
-print()
+
 epochs = 50
 fit_history = model.fit(train_BW, train_Col, epochs=epochs, verbose=1)
 model_json = model.to_json()
@@ -78,9 +81,9 @@ with open('model_cartoon_'+str(epochs)+'.json', "w") as json_file:
 # serialize weights to HDF5
 model.save_weights('model_cartoon_'+str(epochs)+'.h5')
 print("Saved model to disk")
-'''
-epochs = 50
-# load json and create model
+
+
+# For testing the saved pre-trained models: load json and create model
 json_file = open('model_cartoon_'+str(epochs)+'.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
@@ -90,6 +93,7 @@ loaded_model.load_weights('model_cartoon_'+str(epochs)+'.h5')
 print("Loaded model from disk")
 
 
+# PREDICTIONS
 A = []
 B = []
 i = 0
@@ -105,8 +109,10 @@ for img in BW:
     B.append(b)
 
 
+# directory of the original images (not cartoonized)
 original_dir = '../img/original/test/'
 
+# EXTRACT L FROM ORIGINAL IMAGES
 L = []
 i = 0
 for filename in listdir(cartoon_dir):
@@ -119,8 +125,11 @@ for filename in listdir(cartoon_dir):
     L.append(l)
 
 
+# directory for saving the results
 results_dir = '../img/colorized/baseline/baseline_cartoon/epochs_'+str(epochs)+'/'
 
+
+# COMBINE L WITH THE PREDICTED AB CHANNELS
 results = np.empty((dim, dim, 3))
 img = 0
 i = 0

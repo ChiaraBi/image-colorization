@@ -9,17 +9,22 @@ from os import listdir
 from os.path import isfile, join
 
 '''
-Classification using the pretrained AlexNet without fine tuning.
+Classification using AlexNet pre-trained on ImageNet.
 '''
 
 alexnet = torchvision.models.alexnet(pretrained=True)
 alexnet.eval()
 
-model = 'BW'  # orig, BW, chromagan, dahl, siggraph, su, zhang
+model = 'BW'  # orig, BW, chromagan, dahl, siggraph, su, zhang,
+              # baseline_cartoon, baseline_without_cartoon
+
+# The test_path refers to a directory of original or ri-colorized images from ImageNet.
+# The directory should be organized in 12 subdirectories, one for each of the 12 classes.
+# Each subdirectory contains 50 images.
 if model == 'orig' or model == 'BW':
-    test_path = '../img/original/finetuning_test/'
+    test_path = '../img/original/classification_test/'
 else:
-    test_path = '../img/colorized/'+model+'/finetuning_test/'
+    test_path = '../img/colorized/'+model+'/classification_test/'
 
 # Read the ImageNet categories:
 with open("../resources/img_classes/imagenet_classes.txt", "r") as f:
@@ -27,7 +32,7 @@ with open("../resources/img_classes/imagenet_classes.txt", "r") as f:
 
 failed_files = {}
 if model != 'orig':
-    with open('../resources/failed_files.txt') as f:
+    with open('../resources/classification/pre-trained/failed_files.txt') as f:
         failed_files = json.loads(f.read())
 
 onlydirectories = [f for f in listdir(test_path) if not isfile(join(test_path, f))]
@@ -70,7 +75,7 @@ for d in onlydirectories:
                     # Tensor of shape 1000, with confidence scores over Imagenet's 1000 classes
                     output = alexnet(input_batch)
 
-                # The output has unnormalized scores. To get probabilities, you can run a softmax on it.
+                # The output has not normalized scores. To get probabilities, we run a softmax on it.
                 probabilities = torch.nn.functional.softmax(output[0], dim=0)
                 prob, catid = torch.topk(probabilities, 1)
                 if categories[catid[0]] == d:
@@ -88,8 +93,8 @@ accuracy = accuracy / count
 print('Accuracy on '+model+' images: ', accuracy)
 
 if model == 'orig':
-    with open('../resources/failed_files.txt', 'w') as f:
+    with open('../resources/classification/pre-trained/failed_files.txt', 'w') as f:
         f.write(json.dumps(failed_files))
 
-with open('../resources/classification/Test_'+model+'.txt', 'w') as f:
+with open('../resources/classification/pre-trained/Test_'+model+'.txt', 'w') as f:
     f.write("Test acc:" + str(accuracy) + '\n')
