@@ -1,50 +1,61 @@
 \subsection{Classification with AlexNet}
 First, we considered the AlexNet classifier pre-trained on ImageNet and tested on the ImageNet subset in its original, black and white and re-colorized versions.
 
+\begin{table*}[ht]
+	\begin{center}
+		\begin{adjustwidth}{-1cm}{}
+			\begin{tabular}{c|ccccccccc}
+				&\textbf{Original} & \textbf{B\&W} & \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Zhang} & \textbf{Siggraph} & \textbf{Chromagan} & \textbf{InstColorization}  \\
+				\midrule
+				\textbf{Pre-trained} & 74.5\% & 43.1\% & 32.5\% & 34.0\% & 39.8\% & 42.7\% & 43.2\% & 46.8\% & 49.5\% \\
+				\midrule
+				\textbf{Feature Extraction} & 97.2\% & 84.2\% & 79.4\% & 80.4\% & 87.8\% & 87.6\% &  88.9\%   &  90.2\% &       90.0\% \\
+				\midrule
+				\textbf{Finetuning} & 99.7\% & 63.0\% & 58.4\% & 63.6\% & 64.4\% & 80.9\% &  79.9\%   &  77.9\% &       73.7\% \\
+			\end{tabular}
+		\end{adjustwidth}
+	\end{center}
+	\caption{{\small  Summary of the classification accuracy of Alexnet in three different settings: Alexnet pre-trained on Imagenet, Alexnet feature extraction for the ImageNet subset, AlexNet finetuning for the Birds and Flowers dataset.}}
+	\label{tab:pre-trained}
+\end{table*}
+
 \begin{figure*}[t]
 	\centering
 	\captionsetup[subfigure]{labelformat=empty}
 	\begin{subfigure}[b]{0.1\textwidth}
 		\centering
 		\includegraphics[width=2cm]{or - imgnet.jpeg}
-		\caption{Original}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{b - imgnet.jpeg}
-		\caption{Baseline w/c}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{bw - imgnet.jpeg}
-		\caption{Baseline}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{d - imgnet.jpeg}
-		\caption{Dahl}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{z - imgnet2.jpeg}
-		\caption{Zhang}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{si - imgnet2.jpeg}
-		\caption{Siggraph}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{chr - imgnet2.jpeg}
-		\caption{Chromagan}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.1\textwidth}
 		\includegraphics[width=2cm]{su - imgnet.png}
-		\caption{InstColoriz.}
 	\end{subfigure}
 
+	\vspace{0.1cm}
 	\begin{subfigure}[b]{0.1\textwidth}
 		\centering
 		\includegraphics[width=2cm]{or - flamingo.jpg}
@@ -104,22 +115,4 @@ The best colorizations according to this experiment are given by the Zhang and S
 In this last setting, we can notice a general decreasing in the accuracy (except for the original images) with respect to the feature extraction using the ImageNet subset. This is due to the fact that our pre-trained models have been trained on Image-Net and their colorization of the birds and flowers images are overall bad. However, looking at our results, a badly colored image generally seems more distinguishable than its black and white version.
 
 To conclude, the colorizations of two images are reported as an example in Figure \ref{fig:imagenet}.
-
-\begin{table*}[ht]
-	\begin{center}
-		\begin{adjustwidth}{-1cm}{}
-			\begin{tabular}{c|ccccccccc}
-				 &\textbf{Original} & \textbf{B\&W} & \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Zhang} & \textbf{Siggraph} & \textbf{Chromagan} & \textbf{InstColorization}  \\
-				\midrule
-				\textbf{Pre-trained} & 74.5\% & 43.1\% & 32.5\% & 34.0\% & 39.8\% & 42.7\% & 43.2\% & 46.8\% & 49.5\% \\
-				\midrule
-				\textbf{Feature Extraction} & 97.2\% & 84.2\% & 79.4\% & 80.4\% & 87.8\% & 87.6\% &  88.9\%   &  90.2\% &       90.0\% \\
-				\midrule
-				\textbf{Finetuning} & 99.7\% & 63.0\% & 58.4\% & 63.6\% & 64.4\% & 80.9\% &  79.9\%   &  77.9\% &       73.7\% \\
-			\end{tabular}
-		\end{adjustwidth}
-	\end{center}
-	\caption{{\small  Summary of the classification accuracy of Alexnet in three different settings: Alexnet pre-trained on Imagenet, Alexnet feature extraction for the ImageNet subset, AlexNet finetuning for the Birds and Flowers dataset.}}
-	\label{tab:pre-trained}
-\end{table*}
 
