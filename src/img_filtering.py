@@ -5,7 +5,7 @@ from os import listdir
 from os.path import isfile, join
 
 '''
-Apply blurring filter, increase/decrease contrast, increase/decrease luminosity.
+Apply blurring filter, increase/decrease contrast, increase/decrease luminance.
 '''
 
 
@@ -25,12 +25,12 @@ def change_contrast_and_save(img, contrast_values, output_path):
         cv2.imwrite(save_path, img_contrast)
 
 
-def change_luminosity_and_save(img, luminosity_values, output_path):
-    filter_name = 'luminosity'
-    for beta in luminosity_values:
-        img_luminosity = cv2.convertScaleAbs(img, beta=beta)
+def change_luminance_and_save(img, luminance_values, output_path):
+    filter_name = 'luminance'
+    for beta in luminance_values:
+        img_luminance = cv2.convertScaleAbs(img, beta=beta)
         save_path = output_path + '-' + filter_name + '-' + str(beta) + '.jpeg'
-        cv2.imwrite(save_path, img_luminosity)
+        cv2.imwrite(save_path, img_luminance)
 
 
 input_path = '../img/filtered/original'
@@ -52,9 +52,9 @@ for img_name in img_paths:
     o_path = join(output_folder, img_name[:-5])
     change_contrast_and_save(img_bgr, contrast_values, o_path)
 
-    # Low/High Luminosity
-    luminosity_values = [-30, 20]
-    output_folder = join(output_path, 'luminosity')
+    # Low/High Luminance
+    luminance_values = [-30, 20]
+    output_folder = join(output_path, 'luminance')
     o_path = join(output_folder, img_name[:-5])
-    change_luminosity_and_save(img_bgr, luminosity_values, o_path)
+    change_luminance_and_save(img_bgr, luminance_values, o_path)
 
