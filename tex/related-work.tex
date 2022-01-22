@@ -1,27 +1,16 @@
 \section{Related Work}
-In the past years, several image colorization models have been proposed and developed. They have been classified into
-three main cathegories: scribble-based models, example-based models and deep learning models. In this report we will
-focus on the latter cathegory.
-
-Among the deep learning models, a common approach has been to use deep convolutional neural networks based on the
-VGG-16 architecture. Four of the pretrained models we used in our comparative analysis are indeed based on this
-approach. We are referring to Dahl's model \cite{dahl}, the two models developed by Zhang et al., i.e.
-Eccv16 \cite{zhang} and Siggraph17 \cite{siggraph} and the more recent InstColorization \cite{su}. Despite of some
+In the past years, several image colorization models were developed. They belong to three main cathegories: scribble-based, example-based and deep learning models. Reguarding the latter, a common approach was the use of a CNN based on the VGG-16 architecture. Dahl's model \cite{dahl}, Zhang's models Eccv16 \cite{zhang} and Siggraph17 \cite{siggraph} and the more recent InstColorization \cite{su} all belong to this cathegory. Despite of some
 small changes in the models' architectures, the most important difference among those models consists in the loss
 functions they use.
 
-Another approach consists in using memory networks, i.e. neural networks augmented with an external
+Other recent and successful deep learning approaches concern the employment of GANs, such as ChromaGAN \cite{chromagan}.
+ 
+Another approach consists in using memory neural networks that are augmented with an external
 memory module used to store some critical information. An example of this method is MemoPainter \cite{animation},
-a model that combines a colorization network with a memory network to store rare instances, thus allowing the
+combining a colorization network with a memory network to store rare instances, thus allowing the
 colorization network to produce high-quality colorization with a limited amount of data.
 
-A recent successful approach consists in employing Generative Adversarial Networks (GANs), where a discriminator
-tries to discriminate between real and fake images and a generator tries to fool the discriminator by coloring
-greyscale images in a realistic way. State-of-the-art models such as ChromaGAN \cite{chromagan} are based on this
-approach.
+Concerning the scribble-based approach, some colorizers exploit user inputs to improve the colorization process. That's the case of
+Siggraph17 \cite{siggraph} with user local hints, and the LBIE model by \cite{language}, which uses the image textual description provided by the user.
 
-Finally, some models exploit user inputus to improve the colorization process. That's the case of
-Siggraph17 \cite{siggraph} and \cite{language}, that use the choice of some colors and words respectively.
-
-The aforementioned methods are just a few examples of the several techniques implied in solving the complex task
-of image colorization. There are many more approaches that we won't cover here.
+In conclusion, there are many more approaches that we won't cover here.

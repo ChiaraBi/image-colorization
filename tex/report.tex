@@ -78,10 +78,126 @@ In this section, we propose a simple autoencoder based on cartoonization as base
 \input{zhang}
 \input{siggraph}
 \input{chromagan}
+
+\begin{table*}[ht]
+	\begin{center}
+		\begin{adjustwidth}{-1.3cm}{}
+			\begin{tabular}{c|ccccccccc}
+				&\textbf{Original} & \textbf{B\&W} & \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Eccv16} & \textbf{Siggraph17} & \textbf{ChromaGAN} & \textbf{InstColorization}  \\
+				\midrule
+				\textbf{Pre-trained} & 74.5\% & 43.1\% & 32.5\% & 34.0\% & 39.8\% & 42.7\% & 43.2\% & 46.8\% & 49.5\% \\
+				\midrule
+				\textbf{Feature Extraction} & 97.2\% & 84.2\% & 79.4\% & 80.4\% & 87.8\% & 87.6\% &  88.9\%   &  90.2\% &       90.0\% \\
+				\midrule
+				\textbf{Finetuning} & 99.7\% & 63.0\% & 58.4\% & 63.6\% & 64.4\% & 80.9\% &  79.9\%   &  77.9\% &       73.7\% \\
+			\end{tabular}
+		\end{adjustwidth}
+	\end{center}
+	\caption{{\small  Summary of the classification accuracy of Alexnet in three different settings: Alexnet pre-trained on Imagenet, Alexnet feature extraction for the ImageNet subset, AlexNet finetuning for the Birds and Flowers dataset.}}
+	\label{tab:pre-trained}
+\end{table*}
+
+\begin{figure*}[ht]
+	\centering
+	\captionsetup[subfigure]{labelformat=empty}
+	\begin{subfigure}[b]{0.1\textwidth}
+		\centering
+		\includegraphics[width=2cm]{or - imgnet.jpeg}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{b - imgnet.jpeg}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{bw - imgnet.jpeg}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{d - imgnet.jpeg}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{z - imgnet2.jpeg}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{si - imgnet2.jpeg}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{chr - imgnet2.jpeg}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{su - imgnet.png}
+	\end{subfigure}
+	
+	\vspace{0.1cm}
+	\begin{subfigure}[b]{0.1\textwidth}
+		\centering
+		\includegraphics[width=2cm]{or - flamingo.jpg}
+		\caption{Original}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{bw - flamingo.jpg}
+		\caption{Baseline w/c}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{b - flamingo.jpg}
+		\caption{Baseline}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{d - flamingo.jpg}
+		\caption{Dahl}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{z - flamingo.jpg}
+		\caption{Eccv16}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{si- flamingo.jpg}
+		\caption{Siggraph17}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{chr - flamingo.jpg}
+		\caption{ChromaGAN}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2cm]{su - flamingo.png}
+		\caption{InstColoriz.}
+	\end{subfigure}
+	\caption{{\small Colorization comparison on two images from ImageNet Church (first row) and Bird Species Flamingo (second row).}}
+	\label{fig:imagenet}
+\end{figure*}
+
 \input{su}
 
 \section{Experiments}
 To compare the results of each model, we computed several metrics: classification with AlexNet, LPIPS, PSNR and SSIM (all quantitative metrics) and a Turing test on few images (qualitative metric). Finally, we applied image filtering to evaluate possible improvements in the performances.
+
+\begin{table*}[ht]
+	\begin{center}
+		\begin{tabular}{c|ccccccc}
+			& \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Eccv16} & \textbf{Siggraph17} & \textbf{ChromaGAN} & \textbf{InstColorization}  \\
+			\midrule
+			\textbf{PSNR} & - & - & 16.87 & 20.88 & 22.19 & 21.66 & 21.41 \\
+			\midrule
+			\textbf{SSIM} & - & - & 0.56 & 0.86 & 0.87 & 0.87 & 0.88 \\
+			\midrule
+			\textbf{LPIPS} & 0.28 & 0.28 & 0.36 & 0.23 & 0.20 & 0.21 & 0.23 \\
+		\end{tabular}
+	\end{center}
+	\caption{{\small  Summary of the PSNR, SSIM and LPIPS metrics computed on the different models.}}
+	\label{tab:metrics}
+\end{table*}
 
 \input{classification}
 \input{metrics}
@@ -90,21 +206,24 @@ To compare the results of each model, we computed several metrics: classificatio
 
 \input{conclusion}
 
-\section*{Source Code}
-Our code and data are available at the Github repository https://github.com/ChiaraBi/vision-project.
 \clearpage
 \onecolumn
+
+\section*{Source Code}
+Our code and data are available at the Github repository https://github.com/ChiaraBi/vision-project.
+
 {\small
 \bibliographystyle{ieee_fullname}
 \bibliography{egbib}
 }
+
 
 \section*{Appendix}
 This section contain the graphical representation of the proposed models' architectures.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=7cm]{diagram dahl.jpg}
+	\includegraphics[width=6cm]{diagram dahl.jpg}
 	\caption{Dahl architecture.}
 	\label{fig:dahl}
 \end{figure}

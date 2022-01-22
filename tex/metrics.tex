@@ -1,21 +1,5 @@
 \subsection{PSNR, SSIM and LPIPS metrics}
 
-\begin{table*}[ht]
-	\begin{center}
-		\begin{tabular}{c|ccccccc}
-			& \textbf{Baseline w/c}&\textbf{Baseline} & \textbf{Dahl} & \textbf{Eccv16} & \textbf{Siggraph17} & \textbf{ChromaGAN} & \textbf{InstColorization}  \\
-			\midrule
-			\textbf{PSNR} & - & - & 16.87 & 20.88 & 22.19 & 21.66 & 21.41 \\
-			\midrule
-			\textbf{SSIM} & - & - & 0.56 & 0.86 & 0.87 & 0.87 & 0.88 \\
-			\midrule
-			\textbf{LPIPS} & 0.28 & 0.28 & 0.36 & 0.23 & 0.20 & 0.21 & 0.23 \\
-		\end{tabular}
-	\end{center}
-	\caption{{\small  Summary of the PSNR, SSIM and LPIPS metrics computed on the different models.}}
-	\label{tab:metrics}
-\end{table*}
-
 We computed the following metrics:
 \begin{itemize}
 	\item Peak Signal-to-Noise Ratio (PSNR) \cite{psnr-ssim} computes the ratio between the maximum possible power of a signal and the power of corrupting noise that affects the fidelity of its representation. This is insufficent for assessing structured outputs such as images, as it assumes pixel-wise independence.
@@ -40,3 +24,82 @@ As we can see from Table \ref{tab:metrics}, the best models according to LPIPS a
 
 Dahl's model is the worst-performing for all the metrics, due to its desaturated results.
 Notably, the baseline is able to outperform it and in general there's a grat gap between its scores and the other models' scores. However, this is most probably due to the reshaping of its colorized images ($224\times224\times3$) to match the original images ($256\times256\times3$) causing a little corruption of the results.
+
+\begin{figure*}[ht]
+	\centering
+	\captionsetup[subfigure]{labelformat=empty}
+	\begin{subfigure}[b]{0.1\textwidth}
+		\centering
+		\includegraphics[width=2.4cm]{orig - filter.jpeg}
+		
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{orig - filter - blur.jpeg}
+		
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{orig - filter - cartoon.jpeg}
+		
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{orig - filter - man contr (2).jpg}
+		
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{orig - filter - man contr (1).jpg}
+		
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{orig - filter - lumin (1).jpeg}
+		
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{orig - filter - lumin (2).jpeg}
+		
+	\end{subfigure}
+	
+	\vspace{0.1cm}	
+	\begin{subfigure}[b]{0.1\textwidth}
+		\centering
+		\includegraphics[width=2.4cm]{c - filter.jpeg}
+		\caption{Original}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{c - filter - blurr.jpeg}
+		\caption{Blurred}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{c - filter - cartoon.jpeg}
+		\caption{Cartoon}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{c - filter - man contr (1).jpg}
+		\caption{Low contrast}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{c - filter - man contr (2).jpg}
+		\caption{High contrast}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{c - filter - lumin (1).jpeg}
+		\caption{Brighter}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.1\textwidth}
+		\includegraphics[width=2.4cm]{c - filter - lumin (2).jpeg}
+		\caption{Darker}
+	\end{subfigure}
+	\caption{{\small ChromaGAN colorization (second row) on some filtered images (first row).}}
+	\label{fig:filter}
+\end{figure*}
