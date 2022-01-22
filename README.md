@@ -11,7 +11,7 @@ We used the following datasets:
 Here you can find the pretrained models used in this project:
 - Dahl: https://tinyclouds.org/colorize/ (Download section)
 - Zhang eccv_16: https://github.com/richzhang/colorization/blob/master/colorizers/eccv16.py
-- Zhang siggraph17: https://github.com/richzhang/colorization/blob/master/colorizers/siggraph17.py
+- Zhang siggraph17: https://github.com/richzhang/colorization/blob/master/colorizers/siggraph17.py related paper [here](https://arxiv.org/pdf/1705.02999.pdf)
 - ChromaGAN: https://github.com/pvitoria/ChromaGAN - related paper [here](https://arxiv.org/pdf/1907.09837.pdf)
 - InstColorization: https://github.com/ericsujw/InstColorization - related paper [here](https://arxiv.org/pdf/2005.10825.pdf)
 
@@ -48,4 +48,4 @@ Other recent pretrained models:
 - run the model: `python3 chromaGAN.py`
 
 ## InstColorization
-- run the model: `python3 InstColorization.py`
+The code to run this model is contained in the following notebook: `src/models/InstColorization.ipynb`.
