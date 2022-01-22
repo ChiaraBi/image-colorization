@@ -11,15 +11,14 @@ Our data includes heterogeneous images, representing many different environments
 \end{itemize}
 
 The images have been preprocessed by using OpenCV (ChromaGAN and InstColorization) or Pillow combined with Skimage
-(Baseline, Dahl, Zhang, Siggraph) and have been reshaped to various formats ($256\times256\times3$ for Baseline, Zhang, Siggraph and InstColorization and $224\times224\times3$ for Dahl and ChromaGAN). Dahl also required center cropping and desaturation. Despite the preliminar reshape, Zhang, Siggraph and ChromaGAN provides for results having the original image shape.
+(Baseline, Dahl, Zhang, Siggraph) and have been reshaped to various formats. Dahl also required center cropping and desaturation. Despite the preliminar reshape, Zhang, Siggraph and ChromaGAN provides for results having the original image shape.
 
 Given an RGB image
-we obtain the corrisponding image in the \textit{Lab} color space, in which colors are expressed through 3
+we obtain the corrisponding image in the \textit{Lab} color space, in which images have 3 new
 channels: $L$ for perceptual lightness ($L=0$ is white, $L=100$ is black), $a$ and $b$ for
 four primary colors ($a=\pm100$ are red and green, $b=\pm100$ are yellow and blue). Our models get only the $L$ channel as input (greyscale images) with the goal of predicting the $a$ and $b$
-channels. Then, the resulting images are projected again in the RGB color space.
+channels.
 
-In particular, the classification with AlexNet required the normalization of the images' RGB channels in the
-range $[0,1]$ and a further standardization of the images according to the mean and standard deviation of the
-training set. On the other hand, the LPIPS metric required the normalization of the images' RGB channels in the range $[-1,1]$ and
-the dataset reshaping from $N\times H\times W\times3$ to $N\times3\times H\times W$, where $N$ is the number of images.
+In particular, the classification with AlexNet required the image normalization in the
+range $[0,1]$ and a further standardization according to the mean and standard deviation of the
+training set. On the other hand, the LPIPS metric required image normalization in the range $[-1,1]$.

@@ -1,22 +1,16 @@
 \subsection{Siggraph17}
 
-This second Zhang's colorization model is an interactive model that colorizes greyscale images based on some sparse
-user inputs. However, the model can also be used to colorized images in an automatic way, and that's how we used it.
+This other Zhang's model is an interactive method that is trained on grayscale images integrated by concatenation with some sparse user inputs. Then, the model can be tested it in its automatic colorization version.
 
-Figure \ref{fig:si} shows the model's architecture, which is a U-Net architecture made of 10 convolutional blocks.
-Symmetric shortcuts are added to make it easier for later layers to access to important low-level information.
-BatchNorm layers are added after each convolutional block. Note that the subnetwork consisting of the first 8
-convolutional blocks, without shortcut connections, was used in the previous Zhang's model Eccv16.
+The model has a U-Net architecture $\mathcal{F}_\theta$ made of 10 convolutional blocks, each followed by a BatchNorm layer (Figure \ref{fig:si} in blue).
+Symmetric shortcuts are added to upsampling Convolution layers and make it easier for deeper layers to access to important low-level information. Note that the subnetwork consisting of the first 8
+convolutional blocks without shortcut connections, corresponds to the Eccv16 architecture.
 
-The network has been trained to minimized the following objective function over $\mathcal{D}$, which is a dataset of
-greyscale images, user inputs, and the desired output colorizations:
+The Local Hints Network (Figure \ref{fig:si} in red) incorporates the user points $U_l$ and predicts (as a side task, for user recommendation) a color distribution $\hat{Z}$. The Global Hints Network (Figure \ref{fig:si} in green) transforms the global hint $U_g$ by $1\times1$ Convolutional layers, and adds the result into the main colorization network.
+
+The network learns to minimize the following loss:
 \begin{equation*}
-	\theta^{*} =  \argmin_{\theta} \mathbb{E}_{X, U,Y \sim \mathcal{D}} [ \mathcal{L}( \mathcal{F}(X, U; \theta), Y) ]
+	\mathcal{L}_\delta(\mathcal{F}_\theta(X, U), Y) = \sum_{h,w} \sum_{q} \ell_\delta (\mathcal{F}_\theta(X, U)_{h,w,q}, Y_{h,w,q})
 \end{equation*}
-$\mathcal{L}$ is the loss function and describes how close the network output is to the ground truth color $Y$.
-$U$ represents the user hints, that can be local ($U_{l}$) or global ($U_{g}$).
-
-Instead of using a vibrant but artifact-prone setting, the loss is chosen to give a more conservative colorization
-and then to integrate the colors selected by the user.
-
+where $Y$ and $X$ are the groundtruth image and its greyscale version, $\mathcal{F}_\theta(X, U)$ is the network output based on the trainable weights $\theta$ and the user local or global hint $U$, and $\ell_\delta$ is a smooth-$\ell_1$ loss that doesn't consider the vibrant but artifact-prone colorization with class-rebalancing.
 

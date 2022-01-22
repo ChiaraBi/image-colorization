@@ -1,5 +1,6 @@
 \section{Conclusion}
-As expected, the models having the overall best performances are the state-of-the-art ChromaGAN and Siggraph17. In general, InstColorization is able to improve the results of Eccv16, except for those classes showing bright and rare colors (low accuracy when tested with AlexNet finetuned on birds and flowers images). Moreover, its segmentated colorization can lead to incoherent results when object detection doesn't work properly, and this came out in the Turing test scores.
+As expected, the models having the overall best performances are the state-of-the-art ChromaGAN and Siggraph17. Eccv16 produces vibrant colorizations with the use of class-rebalancing, but at
+the expense of some over-aggressively and visibly artificial colorizations. In general, InstColorization is able to improve the results of Eccv16, except for those classes showing bright and rare colors (low accuracy when tested with AlexNet finetuned on birds and flowers images). Moreover, its segmentated colorization can lead to incoherent results when object detection doesn't work properly, and this came out in the Turing test scores. 
 
 We have also seen that some image filtering concerning luminance and contrast can improve the final colorization.
 
