@@ -1,2 +1,22 @@
 \subsection{Siggraph17}
 
+This second Zhang's colorization model is an interactive model that colorizes greyscale images based on some sparse
+user inputs. However, the model can also be used to colorized images in an automatic way, and that's how we used it.
+
+Figure \ref{fig:si} shows the model's architecture, which is a U-Net architecture made of 10 convolutional blocks.
+Symmetric shortcuts are added to make it easier for later layers to access to important low-level information.
+BatchNorm layers are added after each convolutional block. Note that the subnetwork consisting of the first 8
+convolutional blocks, without shortcut connections, was used in the previous Zhang's model Eccv16.
+
+The network has been trained to minimized the following objective function over $\mathcal{D}$, which is a dataset of
+greyscale images, user inputs, and the desired output colorizations:
+\begin{equation*}
+	\theta^{*} =  \argmin_{\theta} \mathbb{E}_{X, U,Y \sim \mathcal{D}} [ \mathcal{L}( \mathcal{F}(X, U; \theta), Y) ]
+\end{equation*}
+$\mathcal{L}$ is the loss function and describes how close the network output is to the ground truth color $Y$.
+$U$ represents the user hints, that can be local ($U_{l}$) or global ($U_{g}$).
+
+Instead of using a vibrant but artifact-prone setting, the loss is chosen to give a more conservative colorization
+and then to integrate the colors selected by the user.
+
+
