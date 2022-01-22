@@ -1,18 +1,11 @@
 \subsection{Turing Test}
-In addition to the aforementioned quantitative metrics, we decided to perform a short Turing test, to use also
-a qualitative metric in the models comparison. To do so, we created a short survey on Google Forms. The survey is
-made of two parts: in the first part we show the participants three different black and white images, each one of
-them followed by the corresponding colorized images; while for the second part we chose 4 different images, which
-are originally colored, and we displayed the corresponding colorized images, without showing the original image.
-For all the automatically colorized images, we asked the participant to say how realist the colorization was in a
-scale that goes from 1 (not realistic at all) to 5 (very realistic). Note that for the Turing Test we employed only images coming from the four best
-performing models, i.e. Eccv16, Siggraph17, ChromaGAN and InstColorization.
+The Turing test is a qualitative metric based on human perceptions. Due to our limited resources we just elaborate a short survey on Google Forms, divided into two sections: we asked the participants to first evaluate the colorizations of three black and white photographs and then evaluate the ri-colorizations of four originally colored images. 
 
-We collected answers from 124 different subjects and in Figure \ref{fig:turing} we can see the mean scores
-obtained by the differnt models. From the plots we can clearly see that the models performed differently on black and white images and on colored
-images. This can be explained by the fact that black and white pictures and colored pictures are taken using
-different technologies.
-However, the models that obtained the higest scores in both cases are Siggraph17 and ChromaGAN.
+A preliminary test has been conducted on a restricted sample of partecipants, who were always be able to dicriminate between the original version of the images and the ri-colorizations. Therefore, we decided to not show the original colored images in the final Turing test in order to avoid biases on the different and equally plausible choices of colors. 
+
+The 124 participants had to score how realistic was each colorization in a
+scale from 1 (not realistic at all) to 5 (very realistic). The test includes only the best colorizers, namely Eccv16, Siggraph17, ChromaGAN and InstColorization. Figure \ref{fig:turing} summarizes the mean scores for each model. Clearly, the models performed differently on originally colored images and greyscale photographs, since these ones have a low-level image statistics which are quite different from those of the modern-day photos on which the models were trained \cite{zhang}.
+Overall, the best average scores are reached by Siggraph17 and ChromaGAN.
 
 \begin{figure}[h]
 	\centering

@@ -1,11 +1,11 @@
 \subsection{Dahl}
 
-Dahl's model is an autoencoder from black and white images to colored ones, with
+Dahl's model consists in an autoencoder from black and white images to colored ones, with
 residuals connections.
-As shown in Figure \ref{fig:dahl}, the encoder is a VGG-16 network with ReLUs as activation functions, that takes in input greyscale images and infers
+As shown in Figure \ref{fig:dahl}, the encoder is a VGG-16 network with ReLU activations, that takes in input greyscale images and infers
 some color information at each layer. This information is added up in the decoder thanks to the residual
-connections, until a 224 x 224 x 3 tensor is constructed. In the last layer of the decoder, a sigmoid activation
-function is used to squash the values between 0 and 1.
+connections, until a $224 \times 224 \times 3$ tensor is constructed. In the last layer of the decoder, the sigmoid activation is used to squash the values between 0 and 1.
+
 Finally, the model's loss function is the average of the following three Euclidean Distances:
 \begin{itemize}
     \item the Euclidean Distance computed between the original colored image and the network output;
@@ -16,8 +16,7 @@ Finally, the model's loss function is the average of the following three Euclide
 Differently to the other models, Dahl's model uses the YUV color encoding system which consists of one luma
 component (Y) and two chrominance components, called U (blue projection) and V (red projection) respectively.
 
-One of the biggest disadvantage of this model is the fact that it handles 224 x 224 images only. This means that
-bigger images have to be cropped and reshaped during the preprocessing, leading to some information loss.
+The biggest disadvantages of this model are the desaturated results and the possible crop and reshape during the preprocessing, leading to some information loss.
 
 % It has been trained on the ILSVRC 2012 classification training dataset.
 

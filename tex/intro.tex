@@ -1,28 +1,31 @@
 \section{Introduction}
-Automatic image colorization consists in automatically assigning colors to greyscale images, in a plausible and
-realistic way, that could potentially fool a human observer. This task is particularly important for advertisement
+Automatic image colorization consists in assigning colors to greyscale images, in a plausible and
+realistic way, that can potentially fool a human observer. This task is particularly important for advertisement
 and film industries, but also in photography and in artist assistance \cite{chromagan}.
 In fact, as Yoo et al. underlined in \cite{animation}, "coloring images is one of the most laborious and expensive
 stages when making modern day animation movies and comics. Automating the colorization process can help to reduce
 both cost and time required in producing comics or animated movies."
 
 Despite many advances in deep learning, automatic image colorization is still nowadays considered a difficult task
-and its applications are still limited. This is mainly due to the fact that image colorization is an ill-posed
-problem that doesn't have a unique solution \cite{su} \cite{chromagan}. Indeed, from a mathematical point of view,
+and its applications are still limited. This is mainly due to the fact that colorization is an ill-posed
+problem that doesn't have a unique solution. Indeed, from a mathematical point of view,
 it requires to map a 2D greyscale image to a 3D colored one, and there are multiple plausible solutions that can
 be effectively used to colorize the same object.
+
+Moreover, to obtain satisfactory results, the colorization models can't simply learn the most frequent and dominant colors and generalize over the data, but must accounts also for rare colors.
 
 In our project we want to explore some of the most recent models for automatic image colorization, such as
 Eccv16 \cite{zhang}, Siggraph17 \cite{siggraph}, ChromaGAN \cite{chromagan}, InstColorization \cite{su}.
 We also used an older model developed by Dahl \cite{dahl} and we implemented a simple model based on a
-convolutional autoencoder, as a baseline.
+convolutional autoencoder and cartoonization, as a baseline.
+
 To compare all these models, we performed the classification task on the colorized images and measured the
-classification accuracy. Furthermore, we computed some advanced metrics, such as Learned Perceptual Image Patch
-Similarity (LPIPS), Peak Signal-to-Noise Ratio (PSNR) and Structural Similarity (SSIM), and performed a short
+classification accuracy achieved by AlexNet. Furthermore, we computed some advanced metrics, such as Learned Perceptual Image Patch
+Similarity (LPIPS), Peak Signal-to-Noise Ratio (PSNR) and Structural Similarity (SSIM), and also performed a short
 Turing Test.
 
 Overall, the best performing models for what concerns the quantitative metrics are the most recent ones,
-i.e. ChromaGAN and InstColorization, as we expected. However, in the Turing Test the best performing models
+i.e. ChromaGAN and InstColorization, as we expected. However, according to 124 human partecipants in the Turing Test, the best performing models
 are ChromaGAN and Siggraph17, while InstColorization performed poorly.
 
 
