@@ -30,18 +30,14 @@ Other recent pretrained models:
 - install the requirements: `pip install -r requirements_dahl.txt`
 - position yourself into the following folder: `cd src/models`
 
-- run the model: 
-  - to colorize black and white images: `python3 dahlBW.py`
-  - to colorize ImageNet images: `python3 dahlImageNet.py`
+- run the model: `python3 dahl.py`
     
-## Eccv16
+## Eccv16 and Siggraph17
 - create a virtual environment: `mkvirtualenv --python=python3 zhang`
 - install the requirements: `pip install -r requirements_zhang.txt`
 - position yourself into the following folder: `cd src/models`
 
-- run the model: 
-  - to colorize black and white images: `python3 zhangBW.py`
-  - to colorize ImageNet images: `python3 zhangImageNet.py`
+- run the model: `python3 Eccv16andSiggraph17.py`
 
 ## ChromaGAN
 - download the pretrained model and place the `ChromaGAN.h5` file in the `models` folder
@@ -50,3 +46,6 @@ Other recent pretrained models:
 - position yourself into the following folder: `cd src/models`
 
 - run the model: `python3 chromaGAN.py`
+
+## InstColorization
+- run the model: `python3 InstColorization.py`
