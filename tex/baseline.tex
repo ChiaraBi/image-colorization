@@ -9,7 +9,7 @@ The model was trained (50 epochs) on a heterogeneous dataset containing all the 
 
 Moreover, we enriched this model with a novel approach: instead of using the original dataset, we fed the model
 with the cartoonized (black and white) version of the images, computed with the pre-trained GAN-based cartoonization
-model by \cite{cartoonize}. This cartoonization provides fine-grained results (we don't miss much information)
+model by \cite{cartoonize}. This cartoonization provides fine-grained informative results 
 and synthesizes the original images in order to exclude noisy elements that could interfere with the colorization
 task. The model produces cartoonized colored images whose $a$ and $b$ channels are combined with the $L$ channel
 of the original \textit{Lab} images. Therefore, we mantain the original details of the pictures, while producing a
