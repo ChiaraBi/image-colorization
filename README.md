@@ -15,11 +15,6 @@ Here you can find the pretrained models used in this project:
 - ChromaGAN: https://github.com/pvitoria/ChromaGAN - related paper [here](https://arxiv.org/abs/1907.09837)
 - InstColorization: https://github.com/ericsujw/InstColorization - related paper [here](https://arxiv.org/abs/2005.10825)
 
-Other recent pretrained models:
-- https://github.com/LenKerr/Colorization-1 - inspired by Zhang
-- https://github.com/dongheehand/MemoPainter-PyTorch - related paper [here](https://arxiv.org/pdf/1906.11888.pdf)
-- https://github.com/MarkMoHR/Awesome-Image-Colorization - repository containing various codes/ideas (language-based image editing)
-
 ## Requirements
 - python 3.6 or 3.8
 - virtualenv wrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
