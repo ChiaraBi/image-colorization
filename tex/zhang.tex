@@ -3,10 +3,10 @@ The innovation introduced by Zhang's colorization model is not the model's archi
 two or three repeated Convolutional and ReLU layers followed by a BatchNorm layer, as shown in Figure \ref{fig:zh}) but rather a more suitable loss function for saturated colorization, combined with class rebalancing, which allows to increase the diversity of colors in the results.
 
 Since an object can potentially have several plausible colorization, the model accounts for the multimodal
-distribution of possible colors for each pixel. Indeed, the intrinsic multimodal nature of the colorization
+distribution of possible colors for each pixel. The intrinsic multimodal nature of the colorization
 problem can't be captured by a simple Euclidean loss between the target and the predicted colors. Instead, the
 model learns a map $\mathcal{G}: \mathbb{R}^{H\times W\times1}\rightarrow [0,1]^{H\times W\times Q}$ from the grayscale input to a probability
-distribution $\hat{Z}=P(a,b)$ over $Q=313$ possible $(a,b)$ pairs (i.e. colors), which were obtained throug the
+distribution $\hat{Z}=P(a,b)$ over $Q=313$ possible $(a,b)$ pairs (i.e. colors), which were obtained through the
 quantization of the \textit{ab} output space, as shown in Figure \ref{fig:q}. Then, the multimomial crossentropy
 los is defined as:
 
