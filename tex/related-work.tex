@@ -1,6 +1,27 @@
 \section{Related Work}
-Related Work (10\%): discuss published work or similar apps that relates to your project. How is your
-approach similar or different from others?
+In the past years, several image colorization models have been proposed and developed. They have been classified into
+three main cathegories: scribble-based models, example-based models and deep learning models. In this report we will
+focus on the latter cathegory.
 
-Papers are: \cite{chromagan}, \cite{su}, \cite{zhang},\cite{siggraph}, \cite{dahl},\cite{animation},
-\cite{cartoonize},\cite{language}.
+Among the deep learning models, a common approach has been to use deep convolutional neural networks based on the
+VGG-16 architecture. Four of the pretrained models we used in our comparative analysis are indeed based on this
+approach. We are referring to Dahl's model \cite{dahl}, the two models developed by Zhang et al., i.e.
+Eccv16 \cite{zhang} and Siggraph17 \cite{siggraph} and the more recent InstColorization \cite{su}. Despite of some
+small changes in the models' architectures, the most important difference among those models consists in the loss
+functions they use.
+
+Another approach consists in using memory networks, i.e. neural networks augmented with an external
+memory module used to store some critical information. An example of this method is MemoPainter \cite{animation},
+a model that combines a colorization network with a memory network to store rare instances, thus allowing the
+colorization network to produce high-quality colorization with a limited amount of data.
+
+A recent successful approach consists in employing Generative Adversarial Networks (GANs), where a discriminator
+tries to discriminate between real and fake images and a generator tries to fool the discriminator by coloring
+greyscale images in a realistic way. State-of-the-art models such as ChromaGAN \cite{chromagan} are based on this
+approach.
+
+Finally, some models exploit user inputus to improve the colorization process. That's the case of
+Siggraph17 \cite{siggraph} and \cite{language}, that use the choice of some colors and words respectively.
+
+The aforementioned methods are just a few examples of the several techniques implied in solving the complex task
+of image colorization, but there are many more that we won't cover here.
