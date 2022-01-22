@@ -1,6 +1,7 @@
 \subsection{Siggraph17}
 
-This other Zhang's model is an interactive method that is trained on grayscale images integrated by concatenation with some sparse user inputs. Then, the model can be tested it in its automatic colorization version.
+This other Zhang's model is an interactive method that is trained on grayscale images integrated by concatenation
+with some sparse user inputs. Then, the model can be tested in its automatic colorization version.
 
 The model has a U-Net architecture $\mathcal{F}_\theta$ made of 10 convolutional blocks, each followed by a BatchNorm layer (Figure \ref{fig:si} in blue).
 Symmetric shortcuts are added to upsampling Convolution layers and make it easier for deeper layers to access to important low-level information. Note that the subnetwork consisting of the first 8
