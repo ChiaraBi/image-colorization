@@ -33,7 +33,7 @@ for files in onlyfiles_train:
     _, img_array_BW = preprocess_img(img_array, HW=(256, 256), resample=3)
     img_bw = postprocess_tens(img_array_BW, torch.cat((0 * img_array_BW, 0 * img_array_BW), dim=1))
     '''
-    img_resized = resize_img(img_array, HW=(256,256), resample=3)
+    img_resized = resize_img(img_array, HW=(256, 256), resample=3)
     data_train[i, :, :, :] = img_resized
     print(i)
     i += 1
@@ -75,8 +75,8 @@ for i in range(0, data_test.shape[0]):
     data_test_01[i, :, :, 2] = (data_test[i, :, :, 2] - data_test[i, :, :, 2].min()) / (data_test[i, :, :, 2].max() - data_test[i, :, :, 2].min())
 
 # Normalization wrt mean and std
-train_mean = [np.mean(data_train_01[:, :, :, 0], axis = 0), np.mean(data_train_01[:, :, :, 1], axis = 0), np.mean(data_train_01[:, :, :, 2], axis = 0)]
-train_std = [np.std(data_train_01[:, :, :, 0], axis = 0), np.std(data_train_01[:, :, :, 1], axis = 0), np.std(data_train_01[:, :, :, 2], axis = 0)]
+train_mean = [np.mean(data_train_01[:, :, :, 0], axis=0), np.mean(data_train_01[:, :, :, 1], axis=0), np.mean(data_train_01[:, :, :, 2], axis=0)]
+train_std = [np.std(data_train_01[:, :, :, 0], axis=0), np.std(data_train_01[:, :, :, 1], axis=0), np.std(data_train_01[:, :, :, 2], axis=0)]
 
 data_train_scaled = np.empty(data_train_01.shape)
 data_train_scaled[:, :, :, 0] = (data_train_01[:, :, :, 0] - train_mean[0]) / train_std[0]

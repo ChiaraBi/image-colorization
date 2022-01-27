@@ -15,6 +15,7 @@ Feature Extraction on original ImageNet images.
 models.
 '''
 
+
 def get_labels(labels, num):
     final_labels = None
     for label in labels:
