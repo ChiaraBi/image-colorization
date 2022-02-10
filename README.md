@@ -46,7 +46,7 @@ Here you can find the pretrained models used in this project:
 The code to run this model is contained in the following notebook: `src/models/InstColorization.ipynb`.
 
 ## Metrics
-- AlexNet accuracy classification
+- AlexNet classification accuracy
 - Turing test
 - LPIPS: https://github.com/richzhang/PerceptualSimilarity 
 - PSNR and SSIM: https://cvnote.ddlee.cc/2019/09/12/psnr-ssim-python  
